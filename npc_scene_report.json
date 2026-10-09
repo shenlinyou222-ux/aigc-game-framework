@@ -1,0 +1,181 @@
+{
+  "S1_fact": {
+    "event_id": "world.enemy_died.e91eac1eee3b",
+    "text": "玩家在农田边杀死了老鼠A"
+  },
+  "S2_recall": {
+    "items": [
+      {
+        "event_id": "world.enemy_died.e91eac1eee3b",
+        "kind": "event",
+        "text": "玩家在农田边杀死了老鼠A",
+        "confidence": 0.99,
+        "source_type": "系统公告",
+        "faction": "mouse",
+        "score": 0.0
+      }
+    ],
+    "denied": 0
+  },
+  "S3_preset": {
+    "triggered": [
+      {
+        "id": "kin_harmed",
+        "text": "玩家杀害了老鼠同伴",
+        "sim": 0.7038,
+        "threshold": 0.55,
+        "hint": "同族被伤害是你最不能容忍的事"
+      }
+    ],
+    "scored": [
+      {
+        "id": "kin_harmed",
+        "text": "玩家杀害了老鼠同伴",
+        "sim": 0.7038,
+        "threshold": 0.55
+      },
+      {
+        "id": "player_gives_food",
+        "text": "玩家给我喂了好吃的",
+        "sim": 0.4857,
+        "threshold": 0.6
+      }
+    ],
+    "observed_text": "玩家在农田边杀死了老鼠A"
+  },
+  "S3_5_engine": {
+    "produced": [
+      {
+        "goal": "同族安全",
+        "delta": -0.8,
+        "desirability": -0.8,
+        "emotion": "distress",
+        "intensity": 0.8
+      },
+      {
+        "goal": "自身生存",
+        "delta": -0.2,
+        "desirability": -0.16,
+        "emotion": "distress",
+        "intensity": 0.16
+      },
+      {
+        "causal": "player",
+        "emotion": "hate",
+        "intensity": 0.96,
+        "like_after": -0.96
+      }
+    ],
+    "attitude": {
+      "other": "player",
+      "like": -0.96,
+      "anger": 0.96,
+      "hate": 0.0,
+      "gratitude": 0.0,
+      "attitude_score": -1.0,
+      "attitude": "仇恨"
+    }
+  },
+  "S4_inference": {
+    "prompt": "你是游戏里的 NPC「老鼠B」。\n你的信条：玩家杀害了老鼠同伴（这条信条此刻被触发了，相关度 0.70）\n刚发生的事（有据可查）：玩家在农田边杀死了老鼠A\n你原本对玩家的态度：中性\n\n请推理：这件事让你对玩家的态度变成了什么？只输出一行 JSON：\n{\"attitude\": \"两字态库名词\", \"new_memory\": \"一句完整事实结论（含你对玩家的态度）\", \"confidence\": 0.85}\n示例：{\"attitude\": \"恐惧\", \"new_memory\": \"老鼠B认为玩家会伤害同伴，对玩家充满恐惧\", \"confidence\": 0.9}\n要求：new_memory 必须以\"老鼠B\"开头、把你的态度写进结论里；结论必须由\"刚发生的事\"支撑，不许引入没发生的事；confidence 在 0~1 之间。\n\n情绪引擎读数（必须与读数一致）：你对玩家的愤怒强度 0.96，恨 0.00，关系值 -0.96（引擎态度倾向：仇恨）。",
+    "raw": "{\"attitude\": \"恐惧\", \"new_memory\": \"老鼠B认为玩家会伤害同伴，对玩家充满威胁与敌意\", \"confidence\": 0.85}",
+    "verdict": {
+      "attitude": "恐惧",
+      "new_memory": "老鼠B认为玩家会伤害同伴，对玩家充满威胁与敌意",
+      "confidence": 0.85
+    },
+    "gen_audit": {
+      "model": "qwen3.5:0.8b",
+      "repairs": [],
+      "format_fallback": false,
+      "raw": "{\"attitude\": \"恐惧\", \"new_memory\": \"老鼠B认为玩家会伤害同伴，对玩家充满威胁与敌意\", \"confidence\": 0.85}"
+    }
+  },
+  "S5_store": {
+    "stored": true,
+    "event_id": "npc.inference.11e028b477f9",
+    "session": "npc/mouse_b",
+    "confidence": 0.85,
+    "gate": "(conf >= base_confidence) && (grounded == true)"
+  },
+  "S6_recheck": {
+    "items": [
+      {
+        "event_id": "npc.inference.11e028b477f9",
+        "kind": "fact",
+        "text": "老鼠B认为玩家会伤害同伴，对玩家充满威胁与敌意",
+        "confidence": 0.85,
+        "source_type": "推理",
+        "faction": "mouse",
+        "score": 0.6
+      },
+      {
+        "event_id": "world.enemy_died.e91eac1eee3b",
+        "kind": "event",
+        "text": "玩家在农田边杀死了老鼠A",
+        "confidence": 0.99,
+        "source_type": "系统公告",
+        "faction": "mouse",
+        "score": 0.0
+      }
+    ]
+  },
+  "S7_dialogue": {
+    "prompt": "[老鼠B] 角色\n你是老鼠B，老鼠A是你的同族兄弟。你记仇，对威胁同族的人绝不友善。\n说话风格：警惕，口头禅「吱——」，每次最多 18 字。\n性格：记仇、警觉、护短\n\n你记忆中与玩家有关的事（引述必须真实，没有就别说）：\n- [推理|置信0.85] 老鼠B认为玩家会伤害同伴，对玩家充满威胁与敌意\n- [系统公告|置信0.99] 玩家在农田边杀死了老鼠A\n- [信条触发|sim0.7038] 你的信条「玩家杀害了老鼠同伴」被触碰 (同族被伤害是你最不能容忍的事)\n\n玩家说：（玩家朝你走近了两步）\n\n请用你的口吻回 1~2 句话。只输出 JSON（不要多余文本）：\n{\n  \"lines\": [\"...\"],\n  \"emotion\": \"表情关键词\",\n  \"trigger\": {\"type\": \"proximity\", \"radius_px\": 64},\n  \"claims\": [{\"text\": \"你陈述的事实\", \"event_type\": \"对应事件类型\", \"day\": 1}],\n  \"new_memory\": {\"text\": \"这轮让你记住的一句新结论\", \"grounded\": true, \"confidence\": 0.8}\n}\n要求：\n- lines 中的每一条事实性陈述都必须在 claims 里登记；没有把握就不要陈述事实；\n- 记忆块里没有的事不许编（claim_checker 会逐条对账，CONTRADICTED=幻觉实锤）；\n- trigger 是这条对话的触发条件（proximity=玩家进入 radius_px 像素范围时触发）。\n",
+    "raw": "{ \"lines\": [\"玩家在农田边接近\", \"老鼠B认定玩家将伤害同伴\"], \"emotion\": \"恐惧\", \"trigger\": {\"type\": \"proximity\", \"radius_px\": 64}, \"claims\": [{\"text\": \"玩家逼近你半步\", \"event_type\": \"distanced_by_1_unit\", \"day\": 1}], \"new_memory\": {\"text\": \"老鼠B已认定玩家将伤害同族成员\", \"grounded\": true, \"confidence\": 0.9}}",
+    "dialogue": {
+      "lines": [
+        "玩家在农田边接近",
+        "老鼠B认定玩家将伤害同伴"
+      ],
+      "emotion": "恐惧",
+      "trigger": {
+        "type": "proximity",
+        "radius_px": 64
+      },
+      "claims": [
+        {
+          "text": "玩家逼近你半步",
+          "event_type": "distanced_by_1_unit",
+          "day": 1
+        }
+      ],
+      "new_memory": {
+        "text": "老鼠B已认定玩家将伤害同族成员",
+        "grounded": true,
+        "confidence": 0.9
+      }
+    },
+    "gen_audit": {
+      "model": "qwen3.5:0.8b",
+      "repairs": [],
+      "format_fallback": false,
+      "raw": "{ \"lines\": [\"玩家在农田边接近\", \"老鼠B认定玩家将伤害同伴\"], \"emotion\": \"恐惧\", \"trigger\": {\"type\": \"proximity\", \"radius_px\": 64}, \"claims\": [{\"text\": \"玩家逼近你半步\", \"event_type\": \"distanced_by_1_unit\", \"day\": 1}], \"new_memory\": {\"text\": \"老鼠B已认定玩家将伤害同族成员\", \"grounded\": true, \"confidence\": 0.9}}"
+    },
+    "emotion_tag": "大哭流泪",
+    "emotion_score": 1.0
+  },
+  "S8_command": {
+    "command_id": "npc_hatred_1788708365",
+    "command_type": "set_dialog",
+    "actor": "system",
+    "params": {
+      "npc": "Mouse",
+      "lines": [
+        "玩家在农田边接近",
+        "老鼠B认定玩家将伤害同伴"
+      ],
+      "reset_index": true,
+      "trigger": {
+        "type": "proximity",
+        "radius_px": 64
+      },
+      "emotion": "恐惧",
+      "emotion_tag": "大哭流泪",
+      "emotion_score": 1.0,
+      "attitude": "恐惧",
+      "source_fact": "world.enemy_died.e91eac1eee3b",
+      "inference_event": "npc.inference.11e028b477f9"
+    }
+  }
+}

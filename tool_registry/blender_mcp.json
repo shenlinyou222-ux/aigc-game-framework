@@ -1,0 +1,86 @@
+{
+  "tool": "blender-mcp",
+  "title": "BlenderMCP 本机 3D 服务 (Blender GUI + addon socket :9876)",
+  "bin": "blender.exe",
+  "bin_path": "D:\\Blender\\blender.exe",
+  "category": "本地服务 / 3D / MCP",
+  "keywords": [
+    "blender",
+    "blender mcp",
+    "3D",
+    "建模",
+    "场景",
+    "材质",
+    "渲染",
+    "bpy",
+    "polyhaven",
+    "9876",
+    "viewport",
+    "截图"
+  ],
+  "summary": "通过 MCP 操控本机 Blender：场景/对象信息查询、视口截图、execute_blender_code 执行任意 bpy 代码、PolyHaven 资产搜索下载与贴图设置。Blender 内 addon 以 socket 监听 localhost:9876，MCP 客户端经 blender-mcp (FastMCP stdio) 桥接。addon 源码: blender/blender-mcp/。",
+  "when_to_use": [
+    "需要 3D 建模、场景编辑、材质、灯光、渲染",
+    "需要运行任意 bpy 脚本自动化 Blender",
+    "需要 Blender 视口截图确认建模结果",
+    "需要 PolyHaven 免费资产 (HDRI/贴图/模型) 下载与套用"
+  ],
+  "not_for": [
+    "纯后台 --background 模式 (addon 的 BlenderMCPServer.start() 拒绝 background, 必须 GUI 模式)",
+    "Blender 未启动 / 9876 未监听时 (先执行 start 拉起)"
+  ],
+  "auth": "无需认证, 仅监听 localhost:9876",
+  "commands": [
+    {
+      "name": "start",
+      "usage": "\"D:\\Blender\\blender.exe\" --python \"C:\\Users\\user\\Desktop\\ds harness\\blender\\start_blender_mcp.py\"",
+      "desc": "GUI 模式拉起 Blender 并自动 register() addon, 9876 开始监听; 脚本交还控制权后 Blender 窗口保持运行 (脚本: blender/start_blender_mcp.py)"
+    },
+    {
+      "name": "check",
+      "usage": "powershell -Command \"Get-NetTCPConnection -LocalPort 9876 -State Listen\"",
+      "desc": "检测 addon socket 是否在监听 (socket 服务无 HTTP /health, 只能探端口)"
+    },
+    {
+      "name": "get_scene_info",
+      "usage": "MCP 工具: blender/get_scene_info",
+      "desc": "返回当前场景 objects 摘要 (名称/类型/顶点数/位置)"
+    },
+    {
+      "name": "get_object_info",
+      "usage": "MCP 工具: blender/get_object_info(object_name)",
+      "desc": "单个对象详细信息 (位置/旋转/缩放/材质槽等)"
+    },
+    {
+      "name": "execute_blender_code",
+      "usage": "MCP 工具: blender/execute_blender_code(code)",
+      "desc": "在 Blender 内执行任意 bpy 代码, 万能兜底; 返回 stdout/结果 JSON"
+    },
+    {
+      "name": "get_viewport_screenshot",
+      "usage": "MCP 工具: blender/get_viewport_screenshot(max_size=1000)",
+      "desc": "视口截图返回 Image, 用于自查建模效果"
+    },
+    {
+      "name": "search_polyhaven_assets",
+      "usage": "MCP 工具: blender/search_polyhaven_assets(query, asset_type)",
+      "desc": "PolyHaven 资产搜索 (asset_type: models/hdris/textures); 需先 get_polyhaven_status 确认启用"
+    },
+    {
+      "name": "download_polyhaven_asset",
+      "usage": "MCP 工具: blender/download_polyhaven_asset(asset_id, asset_type, resolution)",
+      "desc": "下载并导入 PolyHaven 资产到场景"
+    },
+    {
+      "name": "set_texture",
+      "usage": "MCP 工具: blender/set_texture(object_name, texture_id)",
+      "desc": "给对象设置 PolyHaven 贴图"
+    }
+  ],
+  "examples": [
+    {
+      "task": "确认 Blender MCP 就绪后建一个立方体",
+      "cmd": "先 check 9876 监听 → blender/get_scene_info 看场景 → blender/execute_blender_code: bpy.ops.mesh.primitive_cube_add()"
+    }
+  ]
+}

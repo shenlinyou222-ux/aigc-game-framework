@@ -1,0 +1,50 @@
+{
+  "tool": "web_fetch",
+  "title": "Web Fetch (web_fetch)",
+  "bin": "",
+  "category": "网络抓取 / 信息获取",
+  "summary": "抓取指定 HTTP(S) URL 并解码为文本（html 或 text），输出 { url, statusCode, body: {kind, content}, truncated }。适合拉取 web_search 命中的结果全文。",
+  "when_to_use": [
+    "需要某个具体 URL 的完整页面内容",
+    "web_search 的 snippet 不够用"
+  ],
+  "not_for": [
+    "本地文件（用 read）",
+    "纯搜索（用 web_search）"
+  ],
+  "parameters": {
+    "url": { "type": "string", "required": true, "description": "The HTTP(S) URL to fetch." }
+  },
+  "output": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "url": { "type": "string", "required": true },
+      "statusCode": { "type": "integer", "required": true },
+      "body": {
+        "required": true,
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": { "kind": { "type": "string", "required": true, "const": "html" }, "content": { "type": "string", "required": true } }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": { "kind": { "type": "string", "required": true, "const": "text" }, "content": { "type": "string", "required": true } }
+          }
+        ]
+      },
+      "truncated": { "type": "boolean", "required": true }
+    }
+  },
+  "commands": [
+    {
+      "name": "web_fetch",
+      "usage": "web_fetch({ url: \"https://...\" })",
+      "desc": "必需 url: string（HTTP(S)）；输出 { url, statusCode, body: {kind:'html'|'text', content}, truncated }"
+    }
+  ],
+  "keywords": ["web", "fetch", "抓取", "URL", "网页", "HTML", "爬取"]
+}

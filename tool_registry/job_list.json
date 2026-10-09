@@ -1,0 +1,28 @@
+{
+  "tool": "job_list",
+  "title": "Background Job List (job_list)",
+  "bin": "",
+  "category": "后台任务 / 任务管理",
+  "summary": "列出当前 Agent 的所有后台任务（运行中与已结束），含 id、kind、status、label。无参数。",
+  "when_to_use": [
+    "查看有哪些后台任务在跑/已完成",
+    "找到某个任务的 job_id 以便 job_output / job_kill"
+  ],
+  "not_for": [
+    "读单个任务输出（用 job_output）",
+    "杀掉任务（用 job_kill）"
+  ],
+  "parameters": {},
+  "output": {
+    "type": "array",
+    "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string" }, "kind": { "type": "string" }, "status": { "type": "string" }, "label": { "type": "string" } } }
+  },
+  "commands": [
+    {
+      "name": "job_list",
+      "usage": "job_list({})",
+      "desc": "无参数；输出 array of {id,kind,status,label}"
+    }
+  ],
+  "keywords": ["job", "后台任务", "任务列表", "background", "job_list"]
+}

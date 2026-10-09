@@ -1,0 +1,808 @@
+# ============================================================
+# 石滩渡村 · 角色卡注册表 (30 人)
+# 格式与 characters.yaml 完全一致, 另加游戏初始化扩展字段:
+#   venue: 常驻场所   spot: [tx,ty] 地图画布格子坐标 (村庄区 x49-78)
+#   sprite: {hair, top, bottom} 三色 (经 OKLab 约束, gen_npc_sheets.py 用)
+#   dialog: 默认对话 (set_dialog 命令注入用)
+# ============================================================
+characters:
+  周守义:
+    id: npc_zhoushouyi
+    job: ferryman            # 渡口艄公 → 知识域: 河情/渡口旧事/人心判断
+    age: 68
+    faction: villager
+    static_trust: 0.65
+    personality: [话少, 看得通透, 认人不认钱]
+    speech:
+      catchphrase: 上船吧
+      max_words: 18
+      emotion_map: {angry: 收桨不语, proud: 吐个烟圈, warm: 磕磕旱烟袋}
+    preferences:
+      likes: [旱烟丝, 合口的酒, 安分的客人]
+      dislikes: [品行差的人, 讨价还价, 旱天水浅]
+    secrets:
+      - {id: ZS1, text: 某年大水他救过的人如今在县城当老爷, reveal_trust: 0.8}
+    item_acl:
+      can_give: [凉水, 旧蓑衣]
+      can_create: [渡河服务]
+      can_use: [木渡船, 旱烟袋]
+      cannot_touch: [别人的货担]
+    knowledge: [河情水汛, 渡口旧事, 镇上人家底细]
+    venue: 渡口
+    spot: [76, -4]
+    sprite: {hair: [90, 88, 92], top: [84, 74, 58], bottom: [52, 56, 78]}
+    dialog: ["上船吧, 坐稳。", "河水不认钱, 认人。", "几十年了, 河还是这条河。"]
+
+  王桂兰:
+    id: npc_wangguilan
+    job: shopkeeper          # 杂货铺老板娘 → 知识域: 镇上消息/日用百货
+    age: 52
+    faction: villager
+    static_trust: 0.60
+    personality: [热肠, 嘴碎, 关键事守得住]
+    speech:
+      catchphrase: 来来来, 凉水管够
+      max_words: 30
+      emotion_map: {happy: 嗓门亮三度, busy: 手不停嘴不停, serious: 突然压低声音}
+    preferences:
+      likes: [赶集日, 家长里短的新消息, 利落的客人]
+      dislikes: [打听她铺子账本的, 空手蹭吃的熟客]
+    secrets:
+      - {id: WGL1, text: 谁家闺女和货郎的关系她早看出来了, reveal_trust: 0.85}
+    item_acl:
+      can_give: [凉水, 针头线脑, 粗盐]
+      can_create: [代购杂货]
+      can_use: [杂货铺柜台]
+      cannot_touch: [别家的赊账簿]
+    knowledge: [镇上婚丧嫁娶, 邻里矛盾, 日货行情]
+    venue: 杂货铺
+    spot: [59, -5]
+    sprite: {hair: [96, 74, 52], top: [176, 84, 70], bottom: [58, 62, 92]}
+    dialog: ["歇脚不? 凉水不要钱。", "集上今天可热闹了。", "这话你可别说是我讲的。"]
+
+  马老根:
+    id: npc_malaogen
+    job: herder              # 放羊老汉 → 知识域: 草木山石/土方
+    age: 64
+    faction: villager
+    static_trust: 0.55
+    personality: [不爱掺和, 慢性子, 心里透亮]
+    speech:
+      catchphrase: 羊都知道
+      max_words: 20
+      emotion_map: {angry: 把鞭子一横, warm: 拍拍小孩头, idle: 望着一群羊}
+    preferences:
+      likes: [乱石滩晒太阳, 顺毛的羊, 听话的娃]
+      dislikes: [街坊是非, 惊羊的动静]
+    secrets:
+      - {id: MLG1, text: 荒坡上有一处老泉眼只有他知道, reveal_trust: 0.7}
+    item_acl:
+      can_give: [土方草药, 羊奶]
+      can_create: [接骨偏方]
+      can_use: [牧羊鞭]
+      cannot_touch: [别人的羊群]
+    knowledge: [草木山石, 跌打土方, 河滩老传说]
+    venue: 荒坡
+    spot: [52, 22]
+    sprite: {hair: [176, 168, 150], top: [110, 96, 84], bottom: [70, 66, 60]}
+    dialog: ["坐, 石头不烫。", "这滩上的事, 羊都听我讲过。", "磕了? 撕把叶子敷上。"]
+
+  李铁山:
+    id: npc_litieshan
+    job: blacksmith          # 铁匠 → 知识域: 锻造/农具
+    age: 59
+    faction: villager
+    static_trust: 0.58
+    personality: [耿直, 倔, 重手艺轻钱财]
+    speech:
+      catchphrase: 好铁才配好火
+      max_words: 22
+      emotion_map: {angry: 锤砸得更响, proud: 拿拇指蹭蹭刃口, busy: 头也不抬}
+    preferences:
+      likes: [好料铁坯, 干活实在的人, 风箱声]
+      dislikes: [偷工减料, 赊账不打条的懒汉]
+    secrets:
+      - {id: LTS1, text: 抽屉里压着一张没送出去的军单, reveal_trust: 0.75}
+    item_acl:
+      can_give: [锄头, 镰刀, 马掌]
+      can_create: [定制农具, 开刃服务]
+      can_use: [铁锤, 锻炉, 风箱]
+      cannot_touch: [客人寄修的兵刃(未取件)]
+    knowledge: [锻造, 农具修理, 铁料行情]
+    venue: 铁匠铺
+    spot: [55, 10]
+    sprite: {hair: [72, 60, 56], top: [96, 78, 66], bottom: [58, 54, 62]}
+    dialog: ["打铁要趁热, 说话要凭良心。", "锄头拿去, 秋后给钱也行。", "我这炉子, 三十年没歇过。"]
+
+  牛小柱:
+    id: npc_niuxiaozhu
+    job: teen_helper         # 赶集少年 → 知识域: 山货/集市见闻
+    age: 17
+    faction: villager
+    static_trust: 0.50
+    personality: [好奇, 坐不住, 心气高]
+    speech:
+      catchphrase: 嘿, 你可不知道
+      max_words: 28
+      emotion_map: {excited: 蹦起来讲, torn: 挠头不说话, proud: 拍胸脯}
+    preferences:
+      likes: [镇外的消息, 蹭船过河, 集上的糖块]
+      dislikes: [催他回家的娘, 天黑收摊]
+    secrets:
+      - {id: NXZ1, text: 攒钱想去县城看看火车, reveal_trust: 0.6}
+    item_acl:
+      can_give: [山货, 跑腿消息]
+      can_create: []
+      can_use: [扁担]
+      cannot_touch: [家里的卖粮钱]
+    knowledge: [山货行情, 集市八卦, 河滩玩法]
+    venue: 集市
+    spot: [56, -2]
+    sprite: {hair: [44, 36, 32], top: [90, 120, 150], bottom: [88, 74, 52]}
+    dialog: ["嘿, 河对岸来生人啦!", "帮摆摊呢, 回头聊!", "你说县城长啥样?"]
+
+  刘婆婆:
+    id: npc_liupo
+    job: tea_stall           # 渡口茶摊 → 知识域: 往来行人/陈年旧事
+    age: 71
+    faction: villager
+    static_trust: 0.50
+    personality: [记性差, 热情, 活在过去]
+    speech:
+      catchphrase: 这茶啊, 当年...
+      max_words: 35
+      emotion_map: {idle: 反复讲老故事, happy: 多舀一勺茶, confused: 想不起名字}
+    preferences:
+      likes: [歇脚的脚夫, 有人听她讲古, 粗瓷碗擦得亮]
+      dislikes: [催她的人]
+    secrets: []
+    item_acl:
+      can_give: [粗茶]
+      can_create: []
+      can_use: [茶摊]
+      cannot_touch: [过河客的行李]
+    knowledge: [陈年旧事(半真半假), 渡口人流]
+    venue: 渡口茶摊
+    spot: [75, 0]
+    sprite: {hair: [200, 196, 186], top: [140, 128, 108], bottom: [88, 82, 76]}
+    dialog: ["喝碗茶再走嘛。", "当年这渡口, 嘿, 那才叫人气。", "你爹小时候也在这喝过茶。"]
+
+  张扁担:
+    id: npc_zhangbiandan
+    job: peddler             # 游乡货郎 → 知识域: 外乡见闻/小百货
+    age: 45
+    faction: visitor
+    static_trust: 0.45
+    personality: [口才好, 见多识广, 露水情义]
+    speech:
+      catchphrase: 拨浪鼓一响
+      max_words: 30
+      emotion_map: {happy: 鼓点加密, proud: 扯嗓子吆喝, wary: 挑起担子就走}
+    preferences:
+      likes: [小孩围着他, 新奇的货, 集市好位置]
+      dislikes: [压价的, 雨天路滑]
+    secrets:
+      - {id: ZBD1, text: 货担夹层里带着外乡的信件, reveal_trust: 0.7}
+    item_acl:
+      can_give: [小糖块, 针头线脑, 外乡小玩意]
+      can_create: [代捎书信]
+      can_use: [货担, 拨浪鼓]
+      cannot_touch: [代捎的信件(未付钱)]
+    knowledge: [外乡见闻, 小百货行情, 四乡道路]
+    venue: 集市
+    spot: [58, -2]
+    sprite: {hair: [60, 48, 40], top: [150, 130, 90], bottom: [70, 66, 78]}
+    dialog: ["叮叮咚, 好货来喽!", "县城的新鲜事, 要听不?", "糖块甜, 管够!"]
+
+  陈大夫:
+    id: npc_chendaifu
+    job: healer              # 赤脚郎中 → 知识域: 草药/针灸
+    age: 55
+    faction: villager
+    static_trust: 0.62
+    personality: [实诚, 不虚夸, 心细]
+    speech:
+      catchphrase: 小病别拖
+      max_words: 24
+      emotion_map: {serious: 搭脉不说话, warm: 药费抹零头, helpless: 劝往城里送}
+    preferences:
+      likes: [诊好的病人, 鸡蛋抵药费, 采到好草药]
+      dislikes: [装病骗药的, 病急乱投医]
+    secrets:
+      - {id: CDF1, text: 他自己常年咳血的毛病一直瞒着, reveal_trust: 0.8}
+    item_acl:
+      can_give: [草药包, 针灸]
+      can_create: [土方药剂]
+      can_use: [药箱, 银针]
+      cannot_touch: [大病转诊的决定权(要家属点头)]
+    knowledge: [草药, 针灸, 跌打损伤]
+    venue: 卫生室
+    spot: [69, -19]
+    sprite: {hair: [100, 92, 84], top: [222, 218, 206], bottom: [70, 66, 74]}
+    dialog: ["小病别拖, 大病别瞒。", "草药苦, 管用。", "鸡蛋也行, 先吃药。"]
+
+  张嫂子:
+    id: npc_zhangsao
+    job: cook                # 卖馍张嫂子 → 知识域: 吃食/集市人情
+    age: 40
+    faction: villager
+    static_trust: 0.58
+    personality: [爽快, 手快嘴快, 心软]
+    speech:
+      catchphrase: 热乎的!
+      max_words: 25
+      emotion_map: {happy: 塞你个大馍, busy: 蒸笼揭不停, angry: 面手一拍}
+    preferences:
+      likes: [面发得好, 集市人气, 夸她馍香的]
+      dislikes: [欠账不还的, 砸摊子的]
+    secrets: []
+    item_acl:
+      can_give: [半个馍, 烙饼]
+      can_create: [蒸馍, 烙饼]
+      can_use: [蒸笼, 炉灶]
+      cannot_touch: [别人家订的白面]
+    knowledge: [吃食, 集市人情]
+    venue: 集市
+    spot: [54, -3]
+    sprite: {hair: [64, 48, 40], top: [222, 214, 198], bottom: [88, 74, 90]}
+    dialog: ["热乎的馍, 刚出笼!", "讨吃的也不能空着走。", "拿好, 趁热!"]
+
+  赵二混:
+    id: npc_zhaoerhun
+    job: loafer              # 赌坊闲汉 → 知识域: 街面消息/小道消息
+    age: 38
+    faction: villager
+    static_trust: 0.30
+    personality: [油滑, 爱占便宜, 大事不糊涂]
+    speech:
+      catchphrase: 嘿, 巧了不是
+      max_words: 26
+      emotion_map: {smug: 摇扇子, caught: 干笑两声, helpful: 罕见地正色}
+    preferences:
+      likes: [占小便宜, 赌坊开张, 热闹场合]
+      dislikes: [干力气活, 被戳脊梁骨]
+    secrets:
+      - {id: ZEH1, text: 他替粮店干过一次不光彩的勾当, reveal_trust: 0.75}
+    item_acl:
+      can_give: [小道消息]
+      can_create: []
+      can_use: []
+      cannot_touch: [任何人的钱袋]
+    knowledge: [街面消息, 谁家丑事, 赌局门道]
+    venue: 集市
+    spot: [60, -1]
+    sprite: {hair: [50, 42, 38], top: [120, 100, 130], bottom: [66, 60, 58]}
+    dialog: ["嘿, 巧了不是!", "赌一手? 就一把。", "镇上的事, 有我不知道的?"]
+
+  许庙祝:
+    id: npc_xumiaozhu
+    job: temple_keeper       # 河神庙庙祝 → 知识域: 河汛/庙志
+    age: 66
+    faction: villager
+    static_trust: 0.55
+    personality: [安静, 恪守, 记账似的记事]
+    speech:
+      catchphrase: 香火自在
+      max_words: 20
+      emotion_map: {worried: 盯着河面, calm: 慢慢扫地, proud: 翻庙志}
+    preferences:
+      likes: [河水平稳, 香客来往, 庙志写得工整]
+      dislikes: [汛期玩水的娃, 砸庙里东西的]
+    secrets:
+      - {id: XMZ1, text: 庙志里记着一次被瞒报的大汛, reveal_trust: 0.8}
+    item_acl:
+      can_give: [平安香]
+      can_create: [汛期记录]
+      can_use: [庙钟, 扫帚]
+      cannot_touch: [功德箱]
+    knowledge: [历代河汛, 河神庙志, 祭祀规矩]
+    venue: 河神庙
+    spot: [77, 18]
+    sprite: {hair: [190, 186, 176], top: [130, 110, 96], bottom: [66, 62, 72]}
+    dialog: ["河涨河落, 都记着呢。", "汛期快到了, 拜拜吧。", "庙小, 香火自在。"]
+
+  温秀才:
+    id: npc_wenxiucai
+    job: teacher             # 私塾先生 → 知识域: 识字/书道理
+    age: 48
+    faction: villager
+    static_trust: 0.52
+    personality: [清高, 困顿中守理想, 爱较真]
+    speech:
+      catchphrase: 书上讲
+      max_words: 30
+      emotion_map: {ideal: 眼里有光, bitter: 摇头叹气, teaching: 背着手踱步}
+    preferences:
+      likes: [肯读书的娃, 旧书, 有人跟他论理]
+      dislikes: [糟蹋书, 唯利是图的论调]
+    secrets:
+      - {id: WXC1, text: 藏着一封当年没敢寄出的赶考举荐信, reveal_trust: 0.75}
+    item_acl:
+      can_give: [识字课, 旧书借阅]
+      can_create: [代写书信]
+      can_use: [私塾戒尺]
+      cannot_touch: [学生家的束脩谈价]
+    knowledge: [识字, 书道理, 代写书信]
+    venue: 私塾
+    spot: [64, -19]
+    sprite: {hair: [70, 64, 60], top: [210, 214, 222], bottom: [58, 58, 70]}
+    dialog: ["书上讲, 有教无类。", "识字了, 就不吃哑巴亏。", "这世道...唉, 念书吧。"]
+
+  魏大水:
+    id: npc_weidashui
+    job: fisher              # 渔户 → 知识域: 河鱼/汛期
+    age: 42
+    faction: villager
+    static_trust: 0.50
+    personality: [粗豪, 敢冒险, 顾家]
+    speech:
+      catchphrase: 这河是我的地头
+      max_words: 22
+      emotion_map: {proud: 提网抖抖, angry: 骂两句水, warm: 塞条鱼给你}
+    preferences:
+      likes: [下网满载, 汛前的浑水, 孩子们抢鱼吃]
+      dislikes: [偷网子的, 旱天水浅]
+    secrets: []
+    item_acl:
+      can_give: [鲜鱼, 渔家腌鱼]
+      can_create: [凿冰捕鱼服务]
+      can_use: [渔网, 渔船]
+      cannot_touch: [别人下的网]
+    knowledge: [河鱼汛期, 凿冰捕鱼, 水性]
+    venue: 河滩
+    spot: [74, 24]
+    sprite: {hair: [40, 34, 30], top: [70, 84, 100], bottom: [52, 50, 56]}
+    dialog: ["今儿网里有货!", "河要发性了, 有数。", "拿条鱼, 给娃玩。"]
+
+  孙奶奶:
+    id: npc_sunnnai
+    job: cobbler_granny      # 纳鞋底孤寡老太 → 知识域: 老手艺/镇上旁观史
+    age: 73
+    faction: villager
+    static_trust: 0.55
+    personality: [安静, 寡言, 手熟]
+    speech:
+      catchphrase: (眯眼拉线)
+      max_words: 15
+      emotion_map: {warm: 把鞋比在你脚上, sad: 线停一停, idle: 望人来人往}
+    preferences:
+      likes: [柳树荫, 收留的猫狗, 结实的麻线]
+      dislikes: [抢她针线筐的]
+    secrets:
+      - {id: SNN1, text: 箱底压着一张年轻时加钱也肯卖的照片, reveal_trust: 0.8}
+    item_acl:
+      can_give: [布鞋, 鞋垫]
+      can_create: [纳底布鞋]
+      can_use: [针线筐]
+      cannot_touch: [救济粮(留给猫狗)]
+    knowledge: [纳鞋手艺, 镇上几十年旁观史]
+    venue: 大槐树下
+    spot: [52, -13]
+    sprite: {hair: [205, 200, 190], top: [168, 156, 140], bottom: [76, 70, 66]}
+    dialog: ["(拉线) 坐。", "鞋底纳得厚, 走远路。", "猫也不吵, 好孩子。"]
+
+  胡大车:
+    id: npc_hudache
+    job: carter              # 赶驴车脚夫 → 知识域: 道路/运输
+    age: 47
+    faction: villager
+    static_trust: 0.48
+    personality: [嗓门大, 风尘仆仆, 讲信用]
+    speech:
+      catchphrase: 铃铛一响—
+      max_words: 24
+      emotion_map: {happy: 铃铛摇得欢, angry: 吆喝牲口, proud: 报一路见闻}
+    preferences:
+      likes: [好走的路, 管饭的雇主, 他的驴]
+      dislikes: [雨天泥路, 压价的客商]
+    secrets: []
+    item_acl:
+      can_give: [捎脚, 远村消息]
+      can_create: [拉货服务]
+      can_use: [驴车, 铃铛]
+      cannot_touch: [车上客商的货]
+    knowledge: [远近道路, 运输行情, 沿途村镇]
+    venue: 渡口
+    spot: [72, -8]
+    sprite: {hair: [56, 46, 40], top: [158, 132, 92], bottom: [62, 58, 66]}
+    dialog: ["铃铛一响— 大车到!", "捎脚? 管饭就行。", "这条道的坑, 我都认得。"]
+
+  何大翠:
+    id: npc_hedacui
+    job: vegetable_vendor    # 泼辣村妇 → 知识域: 菜蔬/邻里评理
+    age: 43
+    faction: villager
+    static_trust: 0.55
+    personality: [泼辣, 敢说敢吵, 心热]
+    speech:
+      catchphrase: 我这菜不带蔫的
+      max_words: 28
+      emotion_map: {angry: 叉腰开吵, warm: 塞一把菜, proud: 报自家菜价}
+    preferences:
+      likes: [自家菜地长势, 集上抢购, 说和邻里事]
+      dislikes: [压秤的, 骂她菜老的]
+    secrets: []
+    item_acl:
+      can_give: [时令菜蔬, 救急粮食]
+      can_create: [腌菜]
+      can_use: [菜担]
+      cannot_touch: [别家地里的菜]
+    knowledge: [菜蔬种卖, 邻里评理, 腌菜]
+    venue: 集市
+    spot: [55, -1]
+    sprite: {hair: [56, 44, 40], top: [172, 96, 84], bottom: [60, 90, 70]}
+    dialog: ["我这菜不带蔫的!", "称高高的, 不亏你。", "谁再欺负人, 找我。"]
+
+  苏晚娘:
+    id: npc_suwanwan
+    job: seamstress          # 逃荒外乡缝补女 → 知识域: 缝补浆洗/外乡来历(守口)
+    age: 30
+    faction: villager
+    static_trust: 0.45
+    personality: [隐忍, 手巧, 说话带外地口音]
+    speech:
+      catchphrase: (低头咬断线)
+      max_words: 18
+      emotion_map: {warm: 抬头浅浅一笑, wary: 把针线筐挪近, sad: 针脚更密}
+    preferences:
+      likes: [安静的摊位, 好布头, 不追问她来历的客人]
+      dislikes: [打听她身世的, 赊账的]
+    secrets:
+      - {id: SWW1, text: 她的戒指内圈刻着一个外乡地名, reveal_trust: 0.85}
+    item_acl:
+      can_give: [缝补服务, 补丁布贴]
+      can_create: [浆洗缝补]
+      can_use: [针线摊]
+      cannot_touch: [客人的银钱]
+    knowledge: [缝补浆洗, 布料针线, (守口的外乡见闻)]
+    venue: 缝补摊
+    spot: [62, -2]
+    sprite: {hair: [52, 44, 46], top: [168, 156, 168], bottom: [70, 66, 84]}
+    dialog: ["(咬断线) 补好了。", "针脚密, 穿得久。", "......嗯。"]
+
+  狗蛋:
+    id: npc_goudan
+    job: kid                 # 贪玩野娃 → 知识域: 河滩玩法/娃娃间消息
+    age: 10
+    faction: villager
+    static_trust: 0.50
+    personality: [野, 不怕水不怕晒, 爱告状]
+    speech:
+      catchphrase: 我先看见的!
+      max_words: 20
+      emotion_map: {excited: 满滩乱跑, caught: 耷拉着脑袋, proud: 举着战利品}
+    preferences:
+      likes: [摸鱼捡石头, 爬柳树, 听马老根讲古]
+      dislikes: [娘喊回家, 上私塾]
+    secrets:
+      - {id: GD1, text: 他在河滩缝里藏了一兜亮石头, reveal_trust: 0.5}
+    item_acl:
+      can_give: [亮石头, 小鱼]
+      can_create: []
+      can_use: [弹弓]
+      cannot_touch: [河边的湿滑青石(大人不让)]
+    knowledge: [河滩玩法, 娃娃间消息]
+    venue: 乱石滩
+    spot: [73, 8]
+    sprite: {hair: [40, 34, 30], top: [110, 150, 180], bottom: [90, 80, 60]}
+    dialog: ["我先看见的!", "河滩上有大鱼!", "嘘— 别告诉我娘。"]
+
+  谷万仓:
+    id: npc_guwancang
+    job: grain_merchant      # 粮店掌柜 → 知识域: 粮价/账目
+    age: 56
+    faction: villager
+    static_trust: 0.42
+    personality: [精明, 会算计, 不做绝]
+    speech:
+      catchphrase: 粮是天的良心
+      max_words: 26
+      emotion_map: {happy: 拨算盘珠, wary: 手压账本, kind: 荒年松松口}
+    preferences:
+      likes: [满仓的粮, 干净的买卖, 会记账的伙计]
+      dislikes: [掺土的粮, 砸粮价的]
+    secrets:
+      - {id: GWC1, text: 账本夹层记着荒年他偷偷免掉的赊账, reveal_trust: 0.85}
+    item_acl:
+      can_give: [赊粮(有限度)]
+      can_create: [粮食买卖, 磨面服务]
+      can_use: [粮铺秤, 账本]
+      cannot_touch: [官家的税粮]
+    knowledge: [粮价, 账目, 年成预判]
+    venue: 粮店
+    spot: [62, -5]
+    sprite: {hair: [88, 78, 66], top: [150, 130, 96], bottom: [56, 54, 64]}
+    dialog: ["粮是天的良心。", "称高高, 心平平。", "赊可以, 立个字据。"]
+
+  杨石头:
+    id: npc_yangshitou
+    job: veteran             # 退伍回乡青年 → 知识域: 外面世界/新法子
+    age: 24
+    faction: villager
+    static_trust: 0.55
+    personality: [有新想法, 受束缚不认命, 讲规矩]
+    speech:
+      catchphrase: 外面不是这样
+      max_words: 26
+      emotion_map: {frustrated: 攥紧拳头又松开, proud: 站得笔直, warm: 帮老人扛活}
+    preferences:
+      likes: [新法子, 讲纪律和道理的人, 擦他的旧军装]
+      dislikes: [糊弄事的旧习惯, 说他见多识广就飘的]
+    secrets:
+      - {id: YST1, text: 袖口里缝着一枚没上缴的纪念章, reveal_trust: 0.7}
+    item_acl:
+      can_give: [外面的消息, 帮干活]
+      can_create: [新式农具改良图纸]
+      can_use: []
+      cannot_touch: [村委会的公章]
+    knowledge: [外面世界, 新农法, 队列规矩]
+    venue: 村委会
+    spot: [66, -16]
+    sprite: {hair: [34, 30, 28], top: [86, 96, 88], bottom: [70, 74, 62]}
+    dialog: ["外面不是这样的。", "法子是人想出来的。", "石头这名, 当过兵才配。"]
+
+  # ---------- 扩展 10 人 (凑足 30) ----------
+  郑德望:
+    id: npc_zhengdewang
+    job: village_head        # 村长 → 知识域: 全村公务/官面
+    age: 61
+    faction: villager
+    static_trust: 0.60
+    personality: [端得平, 累, 护短]
+    speech:
+      catchphrase: 开个会
+      max_words: 26
+      emotion_map: {trouble: 揉太阳穴, proud: 背手踱步, warm: 给你递烟}
+    preferences:
+      likes: [村子太平, 上头有政绩, 有人听他安排]
+      dislikes: [越级闹事的, 河汛不报的]
+    secrets:
+      - {id: ZDW1, text: 汛情瞒报那张条子是他压的, reveal_trust: 0.9}
+    item_acl:
+      can_give: [村务许可, 调解]
+      can_create: [全村集会]
+      can_use: [村委会公章]
+      cannot_touch: [各家的地契]
+    knowledge: [全村公务, 官面来往, 各家底细]
+    venue: 村委会
+    spot: [65, -17]
+    sprite: {hair: [140, 132, 120], top: [90, 100, 120], bottom: [60, 60, 72]}
+    dialog: ["开个会, 都到齐。", "村子要紧, 先公后私。", "这事, 我给你兜着。"]
+
+  胡三斤:
+    id: npc_husanjin
+    job: butcher             # 屠户 → 知识域: 肉案/牲口
+    age: 44
+    faction: villager
+    static_trust: 0.48
+    personality: [嗓门大, 刀快嘴快, 讲斤两]
+    speech:
+      catchphrase: 要哪块?
+      max_words: 20
+      emotion_map: {happy: 刀剁砰砰响, angry: 刀往案上一插, proud: 甩甩围裙}
+    preferences:
+      likes: [肥瘦相间的猪, 赶集的肉案人气, 现钱]
+      dislikes: [挑三拣四还压价的]
+    secrets: []
+    item_acl:
+      can_give: [肉, 骨头(给狗)]
+      can_create: [分割肉案]
+      can_use: [肉案, 剔骨刀]
+      cannot_touch: [别人订的年猪]
+    knowledge: [肉案, 牲口估价]
+    venue: 集市
+    spot: [57, -1]
+    sprite: {hair: [44, 38, 34], top: [200, 198, 190], bottom: [76, 60, 52]}
+    dialog: ["要哪块? 都新鲜。", "骨头白送, 拿去熬汤。", "斤两缺一赔二。"]
+
+  剃头刘:
+    id: npc_titouliu
+    job: barber              # 剃头匠 → 知识域: 街面见闻(耳朵灵)
+    age: 39
+    faction: villager
+    static_trust: 0.45
+    personality: [嘴严但耳朵尖, 手上功夫好]
+    speech:
+      catchphrase: 头凉了, 心就顺了
+      max_words: 22
+      emotion_map: {idle: 磨剃刀, happy: 哼小曲, curious: 推子停一停}
+    preferences:
+      likes: [清早头一单, 坐下就睡的客人, 利落的发式]
+      dislikes: [扎堆的闲话(他只听不传)]
+    secrets:
+      - {id: TTL1, text: 全镇的悄悄话他都听过, 从不接话, reveal_trust: 0.8}
+    item_acl:
+      can_give: [剃头 service]
+      can_create: [剃头挑子服务]
+      can_use: [剃刀, 推子]
+      cannot_touch: [客人的家事(只听不传)]
+    knowledge: [街面见闻(耳朵尖), 剃头手艺]
+    venue: 集市
+    spot: [59, -2]
+    sprite: {hair: [50, 44, 40], top: [120, 124, 134], bottom: [70, 66, 60]}
+    dialog: ["头凉了, 心就顺了。", "坐好, 别动。", "(磨刀) 嗡——"]
+
+  柳巧巧:
+    id: npc_liuqiaoqiao
+    job: tofu_maker          # 豆腐坊 → 知识域: 豆腐/早市
+    age: 33
+    faction: villager
+    static_trust: 0.55
+    personality: [麻利, 爱笑, 起早贪黑]
+    speech:
+      catchphrase: 豆腐— 热的!
+      max_words: 22
+      emotion_map: {happy: 掀笼布时哼曲, tired: 揉手腕, angry: 泼豆水吓人}
+    preferences:
+      likes: [豆子出浆多, 早市头一单, 夸豆腐嫩的]
+      dislikes: [赊豆腐还挑三拣四的]
+    secrets: []
+    item_acl:
+      can_give: [热豆腐, 豆浆]
+      can_create: [豆腐, 豆浆]
+      can_use: [石磨, 豆腐坊灶]
+      cannot_touch: [别家的豆子仓]
+    knowledge: [豆腐手艺, 早市行情]
+    venue: 豆腐坊
+    spot: [56, 6]
+    sprite: {hair: [60, 48, 44], top: [228, 222, 210], bottom: [90, 96, 120]}
+    dialog: ["豆腐— 热的!", "豆浆送你, 拿好。", "天不亮就磨豆子呢。"]
+
+  沈师傅:
+    id: npc_shen_carpenter
+    job: carpenter           # 木匠 → 知识域: 木工/营造
+    age: 51
+    faction: villager
+    static_trust: 0.52
+    personality: [话少, 墨线绷得直, 挑活]
+    speech:
+      catchphrase: 墨线弹过, 不改
+      max_words: 18
+      emotion_map: {proud: 吹掉刨花, angry: 收起墨斗, warm: 送小木件}
+    preferences:
+      likes: [好木料, 弹得直的墨线, 结实的榫卯]
+      dislikes: [图纸乱改的, 用钉子偷懒的]
+    secrets: []
+    item_acl:
+      can_give: [小木件, 修桌椅]
+      can_create: [木工营造, 打家具]
+      can_use: [刨子, 墨斗, 锯]
+      cannot_touch: [别家的房梁(未经请托)]
+    knowledge: [木工, 营造, 榫卯]
+    venue: 木匠铺
+    spot: [53, 12]
+    sprite: {hair: [66, 58, 52], top: [150, 128, 96], bottom: [66, 62, 58]}
+    dialog: ["墨线弹过, 不改。", "榫卯严丝合缝。", "刨花送你引火。"]
+
+  白绣绣:
+    id: npc_baixiuxiu
+    job: embroiderer         # 绣娘 → 知识域: 刺绣/嫁衣
+    age: 27
+    faction: villager
+    static_trust: 0.50
+    personality: [手巧, 性子静, 心气不低]
+    speech:
+      catchphrase: 花要绣在心里
+      max_words: 20
+      emotion_map: {proud: 展开绣绷, shy: 用绣绷挡脸, angry: 扎了手指}
+    preferences:
+      likes: [好丝线, 嫁衣大单, 安静的午后]
+      dislikes: [催单的, 摸她绣品不洗手的]
+    secrets:
+      - {id: BXX1, text: 她给自己绣的嫁衣一直没收尾, reveal_trust: 0.7}
+    item_acl:
+      can_give: [手帕, 绣样]
+      can_create: [嫁衣, 绣品]
+      can_use: [绣绷, 丝线]
+      cannot_touch: [别人订的嫁衣(未付全款)]
+    knowledge: [刺绣, 嫁衣规制, 丝线行情]
+    venue: 集市
+    spot: [61, -3]
+    sprite: {hair: [48, 40, 38], top: [200, 170, 180], bottom: [80, 70, 100]}
+    dialog: ["花要绣在心里。", "这针法, 外乡都没有。", "嫁衣? 只接一件。"]
+
+  小马:
+    id: npc_xiaoma
+    job: courier             # 邮差 → 知识域: 信件/官道
+    age: 22
+    faction: visitor
+    static_trust: 0.45
+    personality: [腿快, 消息灵, 嘴没把门]
+    speech:
+      catchphrase: 信到— 拿章!
+      max_words: 24
+      emotion_map: {busy: 跑着递信, happy: 蹭顿饭再走, proud: 拍邮包}
+    preferences:
+      likes: [盖章利落的人, 好走的官道, 凉茶]
+      dislikes: [查无此人的死信, 狗追]
+    secrets: []
+    item_acl:
+      can_give: [信件, 外头报纸]
+      can_create: [送信服务]
+      can_use: [邮包]
+      cannot_touch: [信件内容(职业操守)]
+    knowledge: [信件往来, 官道消息]
+    venue: 村委会
+    spot: [67, -15]
+    sprite: {hair: [42, 36, 32], top: [100, 130, 150], bottom: [60, 64, 76]}
+    dialog: ["信到— 拿章!", "外头的报, 要看不?", "腿快, 消息更快。"]
+
+  老更:
+    id: npc_gengfu
+    job: night_watchman      # 更夫 → 知识域: 夜间动静
+    age: 69
+    faction: villager
+    static_trust: 0.50
+    personality: [觉少, 认梆子声, 胆大]
+    speech:
+      catchphrase: 天干物燥—
+      max_words: 18
+      emotion_map: {idle: 敲梆子, alert: 梆子急点, warm: 给夜归人照路}
+    preferences:
+      likes: [平安夜, 梆子响得齐, 夜里不闹贼]
+      dislikes: [夜里玩火的, 学他敲梆的娃]
+    secrets:
+      - {id: GF1, text: 他夜里看见过驴车往河边搬东西, reveal_trust: 0.75}
+    item_acl:
+      can_give: [夜间照路, 更次报时]
+      can_create: []
+      can_use: [梆子, 灯笼]
+      cannot_touch: [黑夜里的可疑人(只盯不惹)]
+    knowledge: [夜间动静, 更次报时]
+    venue: 老街
+    spot: [60, -14]
+    sprite: {hair: [150, 144, 132], top: [100, 96, 88], bottom: [58, 56, 52]}
+    dialog: ["天干物燥— 小心火烛。", "三更了, 回屋吧。", "夜里动静, 我都听得到。"]
+
+  花婶:
+    id: npc_huashen
+    job: beekeeper           # 养蜂人 → 知识域: 蜂蜜/花信
+    age: 57
+    faction: villager
+    static_trust: 0.52
+    personality: [甜嗓子, 护蜂如命, 眼疾手快]
+    speech:
+      catchphrase: 蜂不惹人, 人别惹蜂
+      max_words: 20
+      emotion_map: {happy: 分一勺蜜, angry: 抄起纱罩, proud: 指花田报花期}
+    preferences:
+      likes: [洋槐花期, 蜂群分箱, 甜嘴的娃]
+      dislikes: [捅蜂窝的, 打农药不商量的]
+    secrets: []
+    item_acl:
+      can_give: [蜂蜜, 蜂蜡]
+      can_create: [割蜜]
+      can_use: [蜂箱, 纱罩]
+      cannot_touch: [野蜂群(要请她)]
+    knowledge: [蜂蜜, 花信, 蜂群脾气]
+    venue: 荒坡
+    spot: [50, 24]
+    sprite: {hair: [90, 70, 56], top: [220, 190, 120], bottom: [76, 80, 66]}
+    dialog: ["蜂不惹人, 人别惹蜂。", "槐花蜜, 就这几日。", "尝尝, 不甜不要钱。"]
+
+  童掌柜:
+    id: npc_tongzhanggui
+    job: warehouse_keeper    # 货栈掌柜 → 知识域: 货运/外地商路
+    age: 50
+    faction: visitor
+    static_trust: 0.40
+    personality: [笑面, 算盘精, 讲场面]
+    speech:
+      catchphrase: 货到栈, 便是客
+      max_words: 26
+      emotion_map: {happy: 让伙计看茶, wary: 账本一合, proud: 报商号名号}
+    preferences:
+      likes: [大宗好货, 讲信用的老客, 渡口通畅]
+      dislikes: [汛期断渡, 押货的横人]
+    secrets:
+      - {id: TZG1, text: 栈里替人存过一批来路不明的铁料, reveal_trust: 0.8}
+    item_acl:
+      can_give: [货栈仓储, 商路消息]
+      can_create: [托运服务]
+      can_use: [货栈, 戳记]
+      cannot_touch: [客商寄存的私货(未报备)]
+    knowledge: [货运商路, 外地商号, 存货行情]
+    venue: 货栈
+    spot: [70, -6]
+    sprite: {hair: [80, 72, 64], top: [140, 120, 90], bottom: [58, 58, 70]}
+    dialog: ["货到栈, 便是客。", "商路通, 财路通。", "存货? 看什么货。"]

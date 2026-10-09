@@ -1,0 +1,32 @@
+{
+ "tool": "upscale-texture",
+ "title": "Real-ESRGAN x4 贴图超分 (GPU, tiled)",
+ "bin_path": "E:\\py312\\python.exe",
+ "category": "图像 / 游戏资产",
+ "keywords": [
+  "超分",
+  "real-esrgan",
+  "esrgan",
+  "贴图",
+  "texture",
+  "upscale",
+  "4x",
+  "8k",
+  "行星贴图"
+ ],
+ "summary": "Real-ESRGAN x4plus (RRDBNet tiled) 贴图超分。权重在 gdgs_lab/assets/goldfish_src/RealESRGAN_x4plus.pth (64MB)。已用于行星贴图 2k→8k (天王星/海王星 NASA 官方只有 2k, 旅行者2号唯一数据源)。",
+ "when_to_use": [
+  "贴图分辨率不够需要 x4 放大",
+  "行星/道具贴图升级"
+ ],
+ "not_for": [
+  "无 GPU 环境 (需 cuda)"
+ ],
+ "commands": [
+  {
+   "name": "run",
+   "usage": "临时复制 tools/upscale_texture.py 改 IN_T/OUT_T 为 sys.argv 传参 (原脚本路径写死), 模型路径改绝对: \"C:\\Users\\user\\Desktop\\ds harness\\experiment\\gdgs_lab\\assets\\goldfish_src\\RealESRGAN_x4plus.pth\"",
+   "desc": "坑: 模型路径相对SRC, 换目录跑会找不到权重"
+  }
+ ]
+}

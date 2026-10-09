@@ -1,0 +1,66 @@
+{
+  "tool": "latex-agent",
+  "title": "LaTeX 详细解析排版 Agent（xelatex + ctex）",
+  "bin": "xelatex",
+  "bin_path": "E:\\MiKTeX\\texmfs\\install\\miktex\\bin\\x64\\xelatex.exe",
+  "category": "文档 / 排版",
+  "summary": "用 LaTeX 把技术讲义/论文改写成'概念详解+生动类比+全注释代码'的中文 PDF。中文必须 xelatex + ctexart；本机 latexmk 缺 perl，直接用 xelatex 连跑 2-3 遍；配套工作流见 skills/latex-doc-agent/SKILL.md。",
+  "when_to_use": [
+    "需要把 PDF/讲义改写成更易懂的详细解析文档（概念+类比+注释代码）",
+    "需要排版并编译中文/英文 PDF（报告、讲义、教程）",
+    "需要从源 PDF 提取内容后生成结构化的 LaTeX 工程"
+  ],
+  "not_for": [
+    "通用 PDF 增删页/填表/OCR（用 anthropics pdf skill：pypdf/reportlab）",
+    "PPT（用 pptx skill）"
+  ],
+  "commands": [
+    {
+      "name": "compile",
+      "usage": "xelatex -interaction=nonstopmode -file-line-error main.tex   （连跑 2-3 遍）",
+      "desc": "编译主文档；不要用 latexmk（本机缺 perl）"
+    },
+    {
+      "name": "build script",
+      "usage": "powershell -ExecutionPolicy Bypass -File build.ps1",
+      "desc": "一键编译 + 日志静默失败检查"
+    },
+    {
+      "name": "clean",
+      "usage": "Remove-Item main.aux,main.log,main.toc,main.out,main.fls -ErrorAction SilentlyContinue",
+      "desc": "清理构建产物"
+    },
+    {
+      "name": "check log",
+      "usage": "Select-String main.log -Pattern 'Overfull|Underfull|Undefined'",
+      "desc": "查 Overfull/Underfull/Undefined 静默错误"
+    },
+    {
+      "name": "pages",
+      "usage": "python -c \"from pypdf import PdfReader; print(len(PdfReader('main.pdf').pages))\"",
+      "desc": "查看页数"
+    }
+  ],
+  "skill_path": "C:\\Users\\user\\Desktop\\ds harness\\aigc_demo_framework\\skills\\latex-doc-agent\\SKILL.md",
+  "keywords": [
+    "LaTeX",
+    "latex",
+    "xelatex",
+    "ctex",
+    "xeCJK",
+    "排版",
+    "PDF",
+    "编译",
+    "中文文档",
+    "讲义",
+    "教程",
+    "概念解析",
+    "类比",
+    "注释",
+    "listings",
+    "TikZ",
+    "booktabs",
+    "表格",
+    "代码高亮"
+  ]
+}

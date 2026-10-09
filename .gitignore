@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# 模型权重与评测数据（体积过大，不随仓库分发，合计约 7 GB）
+models/
+npc_model_eval/
+gen_music/
+gen_music_jobs/
+unsloth_compiled_cache/
+
+# 运行时数据与状态
+*.db
+*.log
+*.err
+*.loge
+game_stores/
+.ctx_working_sets/
+dsh_context_store*.jsonl
+ctx_entities.json
+ng_gh.json
+data_interfaces.jsonl
+data_interface_calls.jsonl
+npc_memory_demo.jsonl
+voice_pairs.jsonl
+voice_intent_corrections.jsonl
+log_vector_store.jsonl
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

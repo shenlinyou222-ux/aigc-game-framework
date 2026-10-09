@@ -1,0 +1,34 @@
+{
+  "tool": "job_kill",
+  "title": "Background Job Kill (job_kill)",
+  "bin": "",
+  "category": "后台任务 / 任务管理",
+  "summary": "按 job_id 取消一个运行中的后台任务。立即返回；任务真正停止后状态才变为 killed。",
+  "when_to_use": [
+    "后台任务卡住或不再需要",
+    "想停止某个长时间运行的任务"
+  ],
+  "not_for": [
+    "正常等待任务完成（用 job_output wait）"
+  ],
+  "parameters": {
+    "job_id": { "type": "string", "required": true, "description": "Job id returned by the tool that started the background work." },
+    "reason": { "type": "string", "description": "Optional short reason, recorded in the log and forwarded to the job." }
+  },
+  "output": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "text": { "type": "string", "required": true },
+      "job": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string" }, "kind": { "type": "string" }, "status": { "type": "string" }, "label": { "type": "string" } }, "required": true }
+    }
+  },
+  "commands": [
+    {
+      "name": "job_kill",
+      "usage": "job_kill({ job_id: \"<id>\", reason?: \"<说明>\" })",
+      "desc": "必需 job_id: string；可选 reason: string（记录到日志并转发给任务）"
+    }
+  ],
+  "keywords": ["job", "后台任务", "取消", "kill", "停止", "job_kill"]
+}

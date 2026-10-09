@@ -1,0 +1,50 @@
+{
+  "tool": "update_goal",
+  "title": "Update Goal (update_goal)",
+  "bin": "",
+  "category": "目标管理 / 长期任务",
+  "summary": "更新当前目标的精确 revision：action 为 edit / pause / resume / complete / blocked。edit/pause/resume 需直接人工请求；自动继续期间允许 complete/blocked。blocked 需连续至少 3 轮同一阻塞条件并附 blocked_reason。",
+  "when_to_use": [
+    "目标达成 → complete",
+    "目标需修改/暂停/恢复 → edit/pause/resume（需人工请求）",
+    "同一阻塞持续多轮 → blocked"
+  ],
+  "not_for": [
+    "创建目标（create_goal）",
+    "无人工请求时擅自 pause/resume"
+  ],
+  "parameters": {
+    "goal_id": { "type": "string", "required": true, "description": "Exact id returned by get_goal." },
+    "revision": { "type": "number", "required": true, "description": "Exact positive revision returned by get_goal." },
+    "action": {
+      "type": "string",
+      "required": true,
+      "enum": ["edit", "pause", "resume", "complete", "blocked"],
+      "description": "edit | pause | resume | complete | blocked"
+    },
+    "objective": { "type": "string", "description": "Replacement objective; valid only with action edit." },
+    "max_goal_rounds": { "type": "number", "description": "Replacement cap; valid only with action edit." },
+    "blocked_reason": { "type": "string", "description": "Concrete blocking condition; required only with action blocked." }
+  },
+  "output": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": { "type": "string" },
+      "revision": { "type": "integer" },
+      "objective": { "type": "string" },
+      "phase": { "type": "string" },
+      "completedRounds": { "type": "integer" },
+      "maxGoalRounds": { "type": "integer" },
+      "blockerReason": { "type": "string" }
+    }
+  },
+  "commands": [
+    {
+      "name": "update_goal",
+      "usage": "update_goal({ goal_id: \"<id>\", revision: 2, action: \"edit|pause|resume|complete|blocked\", objective?: \"...\", max_goal_rounds?: 10, blocked_reason?: \"...\" })",
+      "desc": "必需 goal_id、revision、action；edit 可带 objective/max_goal_rounds；blocked 必带 blocked_reason"
+    }
+  ],
+  "keywords": ["goal", "目标", "update_goal", "complete", "blocked", "pause", "resume", "edit"]
+}

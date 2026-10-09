@@ -1,0 +1,65 @@
+{
+  "tool": "voice-stt-service",
+  "title": "统一语音转文字入口 (PCM→文本 微服务 :8019)",
+  "bin": "voice_stt_server.py",
+  "bin_path": "C:\\Users\\user\\Desktop\\ds harness\\aigc_demo_framework\\voice_stt_server.py",
+  "category": "语音 / STT / 本地服务",
+  "keywords": [
+    "语音转文字",
+    "STT",
+    "ASR",
+    "录音",
+    "PCM",
+    "麦克风",
+    "voice",
+    "speech",
+    "转写",
+    "qwen3asr",
+    "8019",
+    "push-to-talk",
+    "语音输入",
+    "voice-stt-server"
+  ],
+  "summary": "所有 agent 的统一 STT 入口：POST 16kHz 单声道 PCM16LE 裸流到 127.0.0.1:8019/stt 返回文本。内部转发 Qwen3-ASR llama.cpp 服务(:8124)，llama-server 不在时自动分离拉起(60s退避)。CORS 全放行，浏览器可直接调。上游消费方: DSH web 语音输入插件(:3080 🎤/空格按住说话)、voice_intent 游戏语音链路。启动: E:/py312/python.exe voice_stt_server.py 或 start_voice_stt.ps1。（voice-stt-server 旧条目已合并入本工具，勿重复注册）",
+  "when_to_use": [
+    "任何 agent/前端需要把录音转文字——统一走 8019, 不要各自直连 8124",
+    "浏览器端麦克风采集 (CORS 已放行, 参考 DSH-Voice-Input-Plugin/lib/client.js)",
+    "需要 push-to-talk / 流式切段(停顿≥0.7s 自动切段)的交互输入"
+  ],
+  "not_for": [
+    "整段长音频文件转写 (未测, 建议自行切段)",
+    "wav 文件直传——本接口只吃 PCM 裸流; 有 wav 文件时直接用 stt-llamaserver(:8124) 的 /v1/audio/transcriptions"
+  ],
+  "auth": "无需认证, 仅监听 127.0.0.1:8019",
+  "commands": [
+    {
+      "name": "stt",
+      "usage": "curl -X POST http://127.0.0.1:8019/stt --data-binary @audio.pcm -H 'Content-Type: application/octet-stream'",
+      "desc": "body=PCM16LE 单声道裸流(默认16kHz, ?rate= 可传8000~96000); 返回 {\"text\":\"...\"}; <0.1s 空段报错"
+    },
+    {
+      "name": "health",
+      "usage": "curl http://127.0.0.1:8019/health",
+      "desc": "返回 {ok, backend, backend_alive}; backend_alive 检查 8124 下游连通性"
+    },
+    {
+      "name": "start",
+      "usage": "powershell -File 'C:\\Users\\user\\Desktop\\ds harness\\aigc_demo_framework\\start_voice_stt.ps1'",
+      "desc": "幂等拉起 (已监听 8019 则跳过); 推荐登录自启以实现静默常驻"
+    }
+  ],
+  "examples": [
+    {
+      "task": "浏览器采集麦克风 PCM 转文字 (任意 agent 网页均可复制)",
+      "cmd": "const pcm = await recorder.stop(); fetch('http://127.0.0.1:8019/stt',{method:'POST',body:pcm}).then(r=>r.json()).then(j=>j.text)"
+    },
+    {
+      "task": "后端/CLI agent 转写一段 16k PCM",
+      "cmd": "python -c \"import urllib.request;print(urllib.request.urlopen(urllib.request.Request('http://127.0.0.1:8019/stt',data=pcm),timeout=30).read())\""
+    },
+    {
+      "task": "DSH web 内 语音→路由→新会话派发 (关键词→agent)",
+      "cmd": "按住 左Ctrl+空格 说话, 松开后插件转写并按 localStorage.ui-voice-input.routes 关键词表选 preset, 调 /api/session.create{workspaceId,agentPreset}+session.prompt 新建会话派发; 路由表配置见 DSH-Voice-Input-Plugin/README.md"
+    }
+  ]
+}

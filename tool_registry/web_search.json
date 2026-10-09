@@ -1,0 +1,54 @@
+{
+  "tool": "web_search",
+  "title": "Web Search (web_search)",
+  "bin": "",
+  "category": "网络检索 / 信息获取",
+  "summary": "搜索当前网络信息：必需 queries 数组（1-4 条非空查询，合并结果），返回可选 summary 答案 + 来源 URL 列表。命中后可按需用 web_fetch 拉取具体结果全文。",
+  "when_to_use": [
+    "需要发现当前最新/网络上的信息",
+    "需要给结论附来源 URL",
+    "web_fetch 之前先定位相关 URL"
+  ],
+  "not_for": [
+    "本地文件/仓库内已有信息（用 grep/read）",
+    "无需外部信息即可回答的问题"
+  ],
+  "parameters": {
+    "queries": {
+      "type": "array",
+      "required": true,
+      "items": { "type": "string" },
+      "description": "Required search queries; accepts 1-4 items and merges their results."
+    }
+  },
+  "output": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "content": { "type": "string" },
+      "sources": {
+        "type": "array",
+        "required": true,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "url": { "type": "string", "required": true },
+            "title": { "type": "string" },
+            "snippet": { "type": "string" },
+            "publishedAt": { "type": "string" }
+          }
+        }
+      },
+      "truncated": { "type": "boolean", "required": true }
+    }
+  },
+  "commands": [
+    {
+      "name": "web_search",
+      "usage": "web_search({ queries: [\"<查询1>\", ...] })",
+      "desc": "必需 queries: string[]（1-4 条）；输出 { content?: string, sources: [{url,title?,snippet?,publishedAt?}], truncated: boolean }"
+    }
+  ],
+  "keywords": ["web", "search", "search 搜索", "互联网", "来源", "URL", "当前信息"]
+}

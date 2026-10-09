@@ -1,0 +1,54 @@
+{
+  "tool": "intent-query-prompts",
+  "title": "意图识别询问话术库 (未命中时主动追问而非静默兑底)",
+  "bin": "",
+  "category": "语音 / 意图识别",
+  "keywords": [
+    "意图识别",
+    "询问",
+    "澄清",
+    "追问",
+    "未识别指令",
+    "意图不明",
+    "clarify",
+    "ask back"
+  ],
+  "summary": "语音意图识别未命中时的询问/澄清话术集合: gdgs_lab 端未识别 -> notify 未识别指令; 空转写 -> 没听清请再试; EVA 已唤醒但意图不明 -> 播询问并给可选词表. 话术与 eva_broadcasts.json 同源维护.",
+  "when_to_use": [
+    "语音转写非空但未命中任何意图规则",
+    "EVA 唤醒后说的内容不属于已知主题(订票之类)",
+    "需要向用户回收可选指令列表引导下一轮输入"
+  ],
+  "not_for": [
+    "已命中意图的确认式反问(当前流水线不做确认)"
+  ],
+  "auth": "无",
+  "commands": [
+    {
+      "name": "unknown_intent",
+      "usage": "voice_intent.py main loop: cmds 为空 -> _notify(未识别指令: {text[:16]})",
+      "desc": "转写清晰但注册表外能力: 回显听到的词以引导纠正, 不猜测不编造"
+    },
+    {
+      "name": "empty_transcript",
+      "usage": "voice_intent.py: text 为空 -> _notify(没听清(静音或太短), 请再试一次)",
+      "desc": "静音/过短段: 提示重试; 若持续出现需查 STT 采样率链路"
+    },
+    {
+      "name": "eva_unknown",
+      "usage": "EVA 已唤醒 + 意图不明 -> eva_query{topic:unknown, heard}",
+      "desc": "播 没听懂{heard}。可以问: 当前任务、战况、资源, 或说帮助 —— 意图识别询问的核心形态"
+    },
+    {
+      "name": "library",
+      "usage": "aigc_demo_framework/eva_broadcasts.json -> queries.unknown / control.*",
+      "desc": "询问话术单一事实源; 改词即改播报, 不动代码"
+    }
+  ],
+  "examples": [
+    {
+      "task": "用户说 EVA 帮我订高铁票",
+      "cmd": "-> eva_query{topic:unknown, heard: 帮我订高铁票} -> 播 没听懂…可以问: 当前任务、战况、资源"
+    }
+  ]
+}

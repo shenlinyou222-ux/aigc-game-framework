@@ -1,0 +1,69 @@
+{
+  "tool": "workflow",
+  "title": "Workflow Orchestrator (workflow)",
+  "bin": "",
+  "category": "多代理编排 / 大型任务",
+  "summary": "运行一个 JavaScript 工作流脚本，把工作扇出到多个子代理（阶段 + 结构化结果）。仅当用户明确要求 workflow 或大规模多代理编排时使用；一两次委托用普通 subagent 调用。输出 { runId, agentsStarted, result }。",
+  "when_to_use": [
+    "用户明确要求 workflow / 大规模多代理编排",
+    "跨很多独立片段的审计/迁移/多角度研究"
+  ],
+  "not_for": [
+    "一两次委托（用 subagent / subagent_fork）",
+    "普通单代理任务"
+  ],
+  "parameters": {
+    "script": {
+      "type": "string",
+      "required": true,
+      "description": "The plain-JS workflow script body (top-level await allowed; NO `export const meta` statement; end with `return <json-value>`)."
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": true,
+      "description": "The workflow identity block (plain JSON — never code).",
+      "properties": {
+        "name": { "type": "string", "required": true, "description": "Short kebab-case workflow name." },
+        "description": { "type": "string", "required": true, "description": "One-line description of what the workflow does." },
+        "whenToUse": { "type": "string", "description": "Optional guidance on when this workflow applies." },
+        "phases": {
+          "type": "array",
+          "description": "Optional phase declarations matched by phase() calls.",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "title": { "type": "string", "required": true, "description": "The phase title phase() calls match by exact string." },
+              "detail": { "type": "string", "description": "Optional one-line description of the phase." },
+              "provider": { "type": "string", "description": "Optional provider override this phase is expected to use." },
+              "model": { "type": "string", "description": "Optional model override this phase is expected to use." }
+            }
+          }
+        }
+      }
+    },
+    "args": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Optional JSON input exposed to the script as the `args` global (wrap a bare list as a field, e.g. {\"files\": [...]})."
+    }
+  },
+  "output": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "runId": { "type": "string", "required": true },
+      "agentsStarted": { "type": "integer", "required": true },
+      "result": { "type": "json", "required": true }
+    }
+  },
+  "commands": [
+    {
+      "name": "workflow",
+      "usage": "workflow({ script: \"<JS body>\", meta: { name, description, whenToUse?, phases? }, args?: {} })",
+      "desc": "必需 script: string（纯 JS，top-level await，结尾 return <json>）；必需 meta: {name, description}；可选 args"
+    }
+  ],
+  "keywords": ["workflow", "工作流", "多代理", "编排", "orchestration", "扇出", "pipeline", "parallel"]
+}

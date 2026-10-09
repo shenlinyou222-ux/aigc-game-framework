@@ -1,0 +1,46 @@
+{
+  "tool": "create_goal",
+  "title": "Create Goal (create_goal)",
+  "bin": "",
+  "category": "目标管理 / 长期任务",
+  "summary": "为直接的人类请求推断并创建一个 same-session 完成目标（长期运行目标）。需要直接人工请求；不可由子代理等非人类权威创建。",
+  "when_to_use": [
+    "当前人工请求是需跨多轮自动继续的长期目标时",
+    "把一段大任务固化为可续跑的目标"
+  ],
+  "not_for": [
+    "单轮/琐碎任务（不要创建目标）",
+    "子代理或系统自身"
+  ],
+  "parameters": {
+    "objective": {
+      "type": "string",
+      "required": true,
+      "description": "The concrete completion objective inferred from the direct human request."
+    },
+    "max_goal_rounds": {
+      "type": "number",
+      "description": "Optional positive safe-integer limit on automatic continuation rounds."
+    }
+  },
+  "output": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": { "type": "string" },
+      "revision": { "type": "integer" },
+      "objective": { "type": "string" },
+      "phase": { "type": "string" },
+      "completedRounds": { "type": "integer" },
+      "maxGoalRounds": { "type": "integer" }
+    }
+  },
+  "commands": [
+    {
+      "name": "create_goal",
+      "usage": "create_goal({ objective: \"<目标>\", max_goal_rounds?: 20 })",
+      "desc": "必需 objective: string；可选 max_goal_rounds: number（自动继续轮数上限）"
+    }
+  ],
+  "keywords": ["goal", "目标", "create_goal", "长期任务", "自动继续", "objective"]
+}

@@ -1,0 +1,35 @@
+{
+  "tool": "job_output",
+  "title": "Background Job Output (job_output)",
+  "bin": "",
+  "category": "后台任务 / 任务管理",
+  "summary": "读取一个后台任务（job）的输出：stream 任务只返回自上次读取以来的新输出；final-output 任务返回结算后的结果。wait: true 可阻塞等待任务到终态（受 timeout_ms 上限约束）。",
+  "when_to_use": [
+    "后台任务（如 run_in_background 的 shell/子代理）完成后取结果",
+    "轮询长时间任务进度"
+  ],
+  "not_for": [
+    "同步执行任务（直接调用，不要开后台）"
+  ],
+  "parameters": {
+    "job_id": { "type": "string", "required": true, "description": "Job id returned by the tool that started the background work." },
+    "wait": { "type": "boolean", "description": "Block until the job reaches a terminal status or the timeout expires. A timed-out wait returns [status: running] and leaves the job alive." },
+    "timeout_ms": { "type": "number", "description": "Max wait in milliseconds (only meaningful with wait: true). Defaults to the configured wait timeout; capped by the configured maximum." }
+  },
+  "output": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "text": { "type": "string", "required": true },
+      "job": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string" }, "kind": { "type": "string" }, "status": { "type": "string" }, "label": { "type": "string" } }, "required": true }
+    }
+  },
+  "commands": [
+    {
+      "name": "job_output",
+      "usage": "job_output({ job_id: \"<id>\", wait?: true, timeout_ms?: 10000 })",
+      "desc": "必需 job_id: string；可选 wait: boolean、timeout_ms: number；输出 { text: string, job: {id,kind,status,label} }"
+    }
+  ],
+  "keywords": ["job", "后台任务", "任务输出", "background", "job_output", "wait", "结果"]
+}

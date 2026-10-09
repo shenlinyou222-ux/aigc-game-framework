@@ -1,0 +1,101 @@
+{
+  "tool": "github-cli",
+  "title": "GitHub CLI (gh)",
+  "bin": "gh",
+  "bin_path": "D:\\githubcli\\gh.exe",
+  "category": "代码托管 / 协作",
+  "summary": "终端内操作 GitHub：认证、仓库克隆、issue/PR/release 管理、Actions 运行查看、GitHub API 调用。",
+  "when_to_use": [
+    "需要克隆/fork/查看 GitHub 仓库",
+    "创建、查看、合并 Pull Request 或管理 issue",
+    "查询 CI(Actions) 运行状态/日志，下载 release 资产",
+    "需要带认证调用 GitHub REST/GraphQL API"
+  ],
+  "not_for": [
+    "非 GitHub 的 git 托管平台",
+    "Hugging Face 模型/数据集传输（用 hf）"
+  ],
+  "auth": "gh auth login 完成后自动持久化；gh auth token 可取 token 供脚本用",
+  "commands": [
+    {
+      "name": "auth",
+      "usage": "gh auth login | gh auth status | gh auth token",
+      "desc": "认证管理"
+    },
+    {
+      "name": "repo clone",
+      "usage": "gh repo clone OWNER/REPO [DIR] -- <git clone flags>",
+      "desc": "克隆仓库；省略 OWNER 默认当前用户；fork 克隆自动加 upstream remote"
+    },
+    {
+      "name": "repo",
+      "usage": "gh repo view|create|fork|list",
+      "desc": "仓库查看/创建/fork"
+    },
+    {
+      "name": "pr",
+      "usage": "gh pr list|view|checkout|merge|close",
+      "desc": "PR 管理 (pull request 拉取请求)"
+    },
+    {
+      "name": "pr create",
+      "usage": "gh pr create --title \"...\" --body \"...\" [--base BR] [--head BR] | gh pr create --fill",
+      "desc": "创建 PR (create pull request 拉取请求)；--fill 从 commits 自动填充 title/body"
+    },
+    {
+      "name": "issue",
+      "usage": "gh issue list|create|view|close [--label L] [--assignee U]",
+      "desc": "issue 管理"
+    },
+    {
+      "name": "release",
+      "usage": "gh release list|view|create [TAG] [--notes ...]",
+      "desc": "release 管理"
+    },
+    {
+      "name": "run",
+      "usage": "gh run list|view|watch [--workflow WF]",
+      "desc": "查看 GitHub Actions CI 运行状态与日志 (workflow 工作流)"
+    },
+    {
+      "name": "api",
+      "usage": "gh api repos/{owner}/{repo}/issues --jq ...",
+      "desc": "认证调用 GitHub API，支持 --jq/--paginate"
+    }
+  ],
+  "examples": [
+    {
+      "task": "克隆仓库",
+      "cmd": "gh repo clone owner/repo"
+    },
+    {
+      "task": "从当前分支发 PR 并自动填充描述",
+      "cmd": "gh pr create --fill"
+    },
+    {
+      "task": "看最近失败的 CI 运行",
+      "cmd": "gh run list --status failure --limit 5"
+    }
+  ],
+  "keywords": [
+    "GitHub",
+    "git",
+    "gh",
+    "PR",
+    "pull request",
+    "拉取请求",
+    "发PR",
+    "提PR",
+    "合并请求",
+    "issue",
+    "release",
+    "发版",
+    "CI",
+    "Actions",
+    "workflow",
+    "工作流",
+    "gh api",
+    "克隆仓库",
+    "clone"
+  ]
+}

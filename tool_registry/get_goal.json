@@ -1,0 +1,37 @@
+{
+  "tool": "get_goal",
+  "title": "Get Goal (get_goal)",
+  "bin": "",
+  "category": "目标管理 / 长期任务",
+  "summary": "读取当前 same-session 的完成目标：含 id/revision、objective、phase、已完成的轮数、轮数上限、blocker、是否已武装下一轮继续。无参数。",
+  "when_to_use": [
+    "需要查看当前长期目标的精确 id/revision 再 update_goal 之前",
+    "确认目标状态/是否继续"
+  ],
+  "not_for": [
+    "创建或修改目标（用 create_goal / update_goal）"
+  ],
+  "parameters": {},
+  "output": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "id": { "type": "string" },
+      "revision": { "type": "integer" },
+      "objective": { "type": "string" },
+      "phase": { "type": "string" },
+      "completedRounds": { "type": "integer" },
+      "maxGoalRounds": { "type": "integer" },
+      "blockerReason": { "type": "string" },
+      "armed": { "type": "boolean" }
+    }
+  },
+  "commands": [
+    {
+      "name": "get_goal",
+      "usage": "get_goal({})",
+      "desc": "无参数；输出当前目标对象（id, revision, objective, phase, completedRounds, maxGoalRounds, blockerReason?, armed?）"
+    }
+  ],
+  "keywords": ["goal", "目标", "get_goal", "长期任务", "objective"]
+}

@@ -1,0 +1,52 @@
+{
+  "tool": "stt-llamaserver",
+  "title": "Qwen3-ASR Q4_K_M 语音转写服务 (llama.cpp)",
+  "bin": "llama-server.exe",
+  "bin_path": "C:\\Users\\user\\Desktop\\ds harness\\aigc_demo_framework\\models\\llamacpp\\llama-server.exe",
+  "category": "语音 / STT",
+  "keywords": [
+    "语音转文字",
+    "STT",
+    "ASR",
+    "transcribe",
+    "whisper替代",
+    "Qwen3-ASR",
+    "GGUF",
+    "Q4_K_M",
+    "录音转写",
+    "voice"
+  ],
+  "summary": "本机 Qwen3-ASR-0.6B Q4_K_M (llama.cpp CPU, 零显存) 的 OpenAI 兼容转写服务。已实测: 真实短录音 0.10~0.30s/条。",
+  "when_to_use": [
+    "需要把 wav 录音转成文字",
+    "替代 voice_intent.py 的 transformers 后端以省显存"
+  ],
+  "not_for": [
+    "长音频整段转写(未测)",
+    "英文为主的场景(未评测)"
+  ],
+  "auth": "无需认证, 仅监听 127.0.0.1:8124",
+  "commands": [
+    {
+      "name": "transcribe",
+      "usage": "curl -F file=@clip.wav -F model=qwen3-asr http://127.0.0.1:8124/v1/audio/transcriptions",
+      "desc": "POST wav 返回 JSON; text 字段带 'language Chinese<asr_text>' 前缀, 需 re.sub(r'^.*?<asr_text>', '', s) 清洗"
+    },
+    {
+      "name": "health",
+      "usage": "curl http://127.0.0.1:8124/health",
+      "desc": "存活检查"
+    },
+    {
+      "name": "start",
+      "usage": "Start-Process llama-server.exe -ArgumentList '-m','qwen3-asr-gguf/Qwen3-ASR-0.6B-Q4_K_M.gguf','--mmproj','qwen3-asr-gguf/mmproj-Qwen3-ASR-0.6B-Q8_0.gguf','-c','4096','--port','8124','--no-webui' -WorkingDirectory '...models' -WindowStyle Hidden",
+      "desc": "分离式启动 (必须用 Start-Process, bash 后台会随调用结束被杀)"
+    }
+  ],
+  "examples": [
+    {
+      "task": "转写一条用户录音",
+      "cmd": "curl -s -F file=@input.wav -F model=qwen3-asr http://127.0.0.1:8124/v1/audio/transcriptions"
+    }
+  ]
+}

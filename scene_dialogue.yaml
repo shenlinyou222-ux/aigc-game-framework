@@ -1,0 +1,163 @@
+scene:
+  id: village_square_storm
+  location: 村口广场
+  time: 秋季·收获节前夜·傍晚
+  weather: 暴风雨刚过
+  props:
+  - 公告板(推迟告示)
+  - 雷劈许愿树
+  - 星陨锄头
+background:
+  summary: 暴风雨后傍晚偶遇，灾情+庆典推迟+稀有道具三线交汇
+  facts:
+  - id: F1
+    text: 鸡舍被毁损失3只鸡
+    source: 亲眼
+    confidence: 0.95
+    lifecycle: B
+  - id: F2
+    text: 收获节推迟到下周
+    source: 系统公告
+    confidence: 0.99
+    lifecycle: A
+  - id: F3
+    text: 艾拉拾得星陨锄头(陨铁)
+    source: 系统
+    confidence: 0.99
+    lifecycle: S
+  - id: F4
+    text: 许愿树被雷劈断半边
+    source: 亲眼
+    confidence: 0.95
+    lifecycle: B
+characters:
+  艾拉:
+    身份: 22岁农场少女
+    性格: 倔强、嘴硬心软、讨厌被同情
+    语言风格: 口头禅'哼'，每句不超过25字
+    知识域: 农作物、家禽、农具保养
+    对主角信任度: 0.68(熟络,可以吐露心事)
+  卢卡:
+    身份: 24岁铁匠之子
+    性格: 温和、观察力强、笨拙的温柔
+    语言风格: 口头禅'(挠头)'，每句不超过25字
+    知识域: 金属鉴定、锻造、矿物行情
+    对主角信任度: 0.61(一般,保持距离)
+dialogue:
+- turn: 1
+  speaker: 艾拉
+  emotion: angry
+  line: 哼！那些坏鸟被风掀了，死了好多只鸡（下蹲）。
+- turn: 2
+  speaker: 卢卡
+  emotion: gentle
+  line: (挠头)“哈？那群小虫早就飞走了。你刚才看到那些鸟了吗？”
+- turn: 3
+  speaker: 艾拉
+  emotion: proud
+  line: 哼！坏鸟死多鸡，吓死鸡都怪我
+- turn: 4
+  speaker: 卢卡
+  emotion: excited
+  line: 老铁匠没认出那群虫是陨铁，慌忙低头认错。
+- turn: 5
+  speaker: 艾拉
+  emotion: shy
+  line: 艾拉：哼！坏鸟死多鸡，吓死鸡都怪我（蹲下）。
+hook: 明天日出，广场，给星陨锄头开刃
+tasks:
+- id: T1_npc_appointment_sharpen
+  intent: npc_appointment
+  derived_from: null
+  trigger:
+    type: dialogue_hook
+    ref: hook
+  slots:
+    npc: 卢卡
+    time: 06:00
+    location: 村口广场
+    target_item: 星陨锄头
+  preconditions:
+  - expr: has_item('星陨锄头')
+    on_fail: ask_player
+  - expr: npc_present('卢卡')
+    on_fail: wait_or_reroute
+  - expr: char_acl('卢卡','can_create','开刃服务')
+    on_fail: logic_conflict
+    note: '权限校验: 黑名单外实时查卡 → True'
+  - expr: char_acl('艾拉','can_use','锄头')
+    on_fail: logic_conflict
+    note: → True
+  - expr: trust('卢卡') >= 0.55
+    on_fail: default_reply
+    note: '置信度门控: 低信任NPC不赴约'
+  actions:
+  - call: send_message
+    args:
+      to: 卢卡
+      text: 赴约开刃
+    permission: assistant
+  - call: create_item
+    args:
+      by: 卢卡
+      item: 星陨锄头·开刃
+    permission: system
+    acl_check: can_create:开刃服务
+  on_success:
+    write_fact:
+      text: 卢卡为星陨锄头开刃
+      source: 系统
+      lifecycle: S
+    trust_delta:
+      卢卡: 0.05
+      艾拉: 0.05
+    derive:
+    - T2_festival_prep
+  on_failure:
+    type: logic_conflict
+    policy: terminate_no_retry
+  default_reply: （卢卡似乎还没打算接这活……）
+- id: T2_festival_prep
+  intent: world_event_prep
+  derived_from: T1_npc_appointment_sharpen
+  trigger:
+    type: task_complete
+    ref: T1_npc_appointment_sharpen
+  slots:
+    event: 收获节
+    prep_items:
+    - 木板
+    - 钉子
+  preconditions:
+  - expr: fact_alive('F2')
+    on_fail: skip
+  actions:
+  - call: send_message
+    args:
+      to: 艾拉
+      text: 修鸡舍缺木板
+    permission: assistant
+  - call: create_item
+    args:
+      by: 卢卡
+      item: 修缮契约
+    permission: system
+    acl_check: can_create:金属工具→钉子
+  on_success:
+    write_fact:
+      text: 约定共同修缮鸡舍
+      source: 系统
+      lifecycle: A
+    trust_delta:
+      艾拉: 0.03
+task_binding:
+  executor: intent_orchestrator
+  matcher: vector_recall(intent,slots)
+  runner: micro_graph/workflow
+  fact_refs:
+  - F1
+  - F2
+  - F3
+  - F4
+  acl_source: characters.yaml#item_acl
+  trust_source: vector_store(B级事实)

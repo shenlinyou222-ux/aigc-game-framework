@@ -1,0 +1,48 @@
+{
+  "voice": "EVA",
+  "lang": "zh-CN",
+  "wake_words": [
+    "EVA",
+    "伊娃",
+    "诶哇",
+    "艾娃"
+  ],
+  "tts_plan": {
+    "engine": "待选型(RVC/GLaDOS 风格, 见 research/19_AI语音TTS模型调研.md)",
+    "audio_cache": "aigc_demo_framework/eva_audio/",
+    "note": "静态行可预合成缓存; 带 {占位符} 的行运行时先填参再合成"
+  },
+  "queries": {
+    "ack": [
+      "EVA 在线。说 EVA 查询当前任务 试试。"
+    ],
+    "mission": [
+      "当前任务：第 {level} 关，击毁 {kills}/{quota}，{phase_hint}。"
+    ],
+    "status": [
+      "舰体状况：HP {hp}/{hp_max}，第 {level} 关，累计击毁 {kills}，{res_hint}。"
+    ],
+    "resources": [
+      "{res_hint}。过关与击毁核心可获得更多资源。"
+    ],
+    "help": [
+      "我能做：查询当前任务、汇报战况、播报资源、再说一遍、安静、恢复播报，以及显示或隐藏轨迹圈。"
+    ],
+    "unknown": [
+      "没听懂“{heard}”。可以问：当前任务、战况、资源，或说“帮助”。"
+    ]
+  },
+  "control": {
+    "repeat_none": [
+      "EVA 还没有播报过内容。"
+    ],
+    "mute_on": [
+      "EVA 已静音，说“EVA 恢复播报”解除。"
+    ],
+    "mute_off": [
+      "EVA 恢复播报。"
+    ]
+  },
+  "events_note": "波次/核心现身/过关/过热/失败等事件文案在 solar_combat.gd 的 _feed 调用点，数字动态填充，经 _eva_say 通道统一播报。",
+  "source": "voice_intent.py classify_eva(EVA_WAKE/EVA_TOPICS) -> eva_query/eva_repeat/eva_mute 命令 -> solar_combat.gd CMDSRV _iface_eva_*"
+}

@@ -1,0 +1,35 @@
+{
+ "tool": "sfx-gen",
+ "title": "程序化音效合成器 (零依赖纯DSP, 鲸叫/武器音效)",
+ "bin_path": "E:\\py312\\python.exe",
+ "category": "音频 / 游戏资产",
+ "keywords": [
+  "音效",
+  "sfx",
+  "合成",
+  "dsp",
+  "鲸叫",
+  "whale roar",
+  "爆炸",
+  "导弹",
+  "wav",
+  "游戏音频"
+ ],
+ "summary": "纯Python DSP合成游戏音效: 召唤鲸啸(14s三乐章)/远方鲸歌(18s)/鲸鱼问候(6s)/导弹发射(0.4s)/重型爆炸(1.6s)。零第三方依赖。产物写 gdgs_lab/assets/sfx/, 游戏经 _play_sfx() 播放。",
+ "when_to_use": [
+  "需要新鲸叫/武器/爆炸音效或调参数重生成",
+  "whale_roar/whale_distant/whale_greet/missile_launch/explode_big 变体"
+ ],
+ "commands": [
+  {
+   "name": "generate",
+   "usage": "cd \"C:\\Users\\user\\Desktop\\ds harness\\experiment\\gdgs_lab\" && python tools/sfx_gen.py <whale_roar|whale_distant|whale_greet|missile_launch|explode_big> [输出.wav]",
+   "desc": "生成音效; 默认输出 assets/sfx/<preset>.wav"
+  },
+  {
+   "name": "import",
+   "usage": "\"C:\\Users\\user\\Desktop\\ds harness\\experiment\\gdgs_lab\\..\\godot\\Godot_v4.7.2-stable_win64_console.exe\" --headless --path \"C:\\Users\\user\\Desktop\\ds harness\\experiment\\gdgs_lab\" --import",
+   "desc": "改资产后必须 import 再重启游戏"
+  }
+ ]
+}

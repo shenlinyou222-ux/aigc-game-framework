@@ -1,0 +1,88 @@
+{
+  "tool": "hf-cli",
+  "title": "Hugging Face CLI (hf)",
+  "bin": "hf",
+  "bin_path": "C:\\Python314\\Scripts\\hf.exe",
+  "legacy_alias": "huggingface-cli",
+  "category": "模型/数据集 Hub",
+  "summary": "Hugging Face Hub 命令行：模型/数据集/Spaces 的下载与上传、认证、缓存管理、仓库管理、云端 Jobs。",
+  "when_to_use": [
+    "下载模型或数据集（整库或指定文件）",
+    "上传文件/文件夹到 Hub 仓库",
+    "管理 HF 登录（HF_TOKEN）、查看缓存占用",
+    "创建/删除/查询 models/datasets/spaces 仓库"
+  ],
+  "not_for": [
+    "GitHub 代码托管操作（用 gh）",
+    "训练本身（只管 Hub 传输）"
+  ],
+  "auth": "hf auth login 或环境变量 HF_TOKEN",
+  "commands": [
+    {
+      "name": "download",
+      "usage": "hf download REPO_ID [FILENAMES...] --repo-type model|dataset|space [--revision R] [--include GLOB] [--exclude GLOB] [--local-dir DIR] [--cache-dir DIR]",
+      "desc": "下载模型/数据集 (download model dataset)；--local-dir 落地到指定目录"
+    },
+    {
+      "name": "upload",
+      "usage": "hf upload REPO_ID [LOCAL_PATH] [PATH_IN_REPO] --repo-type model|dataset|space [--revision R]",
+      "desc": "单 commit 上传文件或文件夹，支持通配符"
+    },
+    {
+      "name": "auth",
+      "usage": "hf auth login|logout|whoami",
+      "desc": "认证管理"
+    },
+    {
+      "name": "cache",
+      "usage": "hf cache scan|ls|rm",
+      "desc": "本地缓存扫描与清理"
+    },
+    {
+      "name": "repos/models/datasets",
+      "usage": "hf repos create|delete|move ... ; hf models|datasets list|info",
+      "desc": "仓库与元数据管理"
+    },
+    {
+      "name": "jobs",
+      "usage": "hf jobs uv run ...",
+      "desc": "在 HF 云端跑任务"
+    },
+    {
+      "name": "spaces",
+      "usage": "hf spaces ...",
+      "desc": "Spaces 管理"
+    }
+  ],
+  "examples": [
+    {
+      "task": "下载数据集到本地目录",
+      "cmd": "hf download org/dsname --repo-type dataset --local-dir ./data/dsname"
+    },
+    {
+      "task": "只下某个模型的配置与权重",
+      "cmd": "hf download org/model config.json *.safetensors"
+    },
+    {
+      "task": "上传整个文件夹为模型库",
+      "cmd": "hf upload org/model ./out --repo-type model"
+    }
+  ],
+  "keywords": [
+    "Hugging Face",
+    "HF",
+    "hf",
+    "模型下载",
+    "数据集下载",
+    "model",
+    "dataset",
+    "space",
+    "上传模型",
+    "upload",
+    "download",
+    "权重",
+    "safetensors",
+    "缓存",
+    "cache"
+  ]
+}

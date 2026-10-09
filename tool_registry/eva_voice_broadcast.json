@@ -1,0 +1,65 @@
+{
+  "tool": "eva-voice-broadcast",
+  "title": "EVA 舰载语音播报 (唤醒词触发, 含查询当前任务)",
+  "bin": "",
+  "category": "语音 / 播报",
+  "keywords": [
+    "语音播报",
+    "EVA",
+    "舰载AI",
+    "合成语音",
+    "TTS",
+    "播报",
+    "查询当前任务",
+    "意图询问",
+    "voice broadcast",
+    "wake word"
+  ],
+  "summary": "由 EVA 开头的语音指令触发舰载语音播报: 查询当前任务/汇报战况/播报资源/帮助/再说一遍/安静/恢复播报; 意图不明时播询问话术. 命令链: voice_intent.py eva_intents.classify_eva -> inbox(eva_query/eva_repeat/eva_mute) -> solar_combat.gd CMDSRV _iface_eva_* -> _eva_say. 词库 eva_broadcasts.json (TTS 预合成单一事实源).",
+  "when_to_use": [
+    "用户说 EVA 开头的语音指令(如 EVA 查询当前任务)",
+    "游戏事件(波次/核心/过关/过热)需要语音播报接管 _feed 文字",
+    "意图识别未命中时需要播询问而不是静默兑底"
+  ],
+  "not_for": [
+    "StardewValley 村庄项目(走贴纸/闲聊互动管道)"
+  ],
+  "auth": "无需认证, 本地进程间通信",
+  "commands": [
+    {
+      "name": "wake",
+      "usage": "说 EVA 查询当前任务 / EVA 汇报战况 / 伊娃 播报资源",
+      "desc": "唤醒词 EVA/伊娃/诽哇/艾娃 开头即触发; 只喊 EVA -> 应答+用法提示; 未命中主题 -> 播询问话术(意图识别询问)"
+    },
+    {
+      "name": "eva_query",
+      "usage": "inbox {command_type: eva_query, params: {topic: mission|status|resources|help|unknown|ack, heard?}}",
+      "desc": "游戏端组装实时数据(关卡/击毁/HP/资源)并经 _eva_say 播报; 词板 eva_broadcasts.json queries 组"
+    },
+    {
+      "name": "eva_repeat",
+      "usage": "说 EVA 再说一遍 -> {command_type: eva_repeat}",
+      "desc": "重播上一条 EVA 播报(含游戏事件文本)"
+    },
+    {
+      "name": "eva_mute",
+      "usage": "说 EVA 安静 / EVA 恢复播报 -> {command_type: eva_mute, params: {on: bool}}",
+      "desc": "静音/恢复; 静音确认与恢复提示会强制播出"
+    },
+    {
+      "name": "events",
+      "usage": "solar_combat.gd _feed() -> _eva_say()",
+      "desc": "波次来袭/核心现身/过关/武器过热等事件文案经同一通道播报, 数字动态填充, TTS 接入后直接出声"
+    }
+  ],
+  "examples": [
+    {
+      "task": "语音查询当前任务",
+      "cmd": "说: EVA 查询当前任务 -> eva_query{topic:mission} -> 播报 当前任务: 第 N 关 击毁 k/q"
+    },
+    {
+      "task": "添加新播报词",
+      "cmd": "编辑 eva_broadcasts.json 对应组(queries/control); 静态行可 TTS 预合成到 eva_audio/"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "tool": "cli-discovery-protocol",
+  "title": "未知 CLI 探索协议",
+  "bin": "-",
+  "category": "元能力",
+  "summary": "遇到注册表中没有的命令行工具时的标准探索流程；以及把新工具固化进注册表的方法。",
+  "when_to_use": [
+    "需要用某个未注册的外部 CLI",
+    "用户提到一个新工具名"
+  ],
+  "steps": [
+    "1. 定位可执行：Get-Command <name>（pwsh）或 which <name>",
+    "2. 看顶层用法：<name> --help（只取头部，避免刷屏）",
+    "3. 看目标子命令用法：<name> <sub> --help",
+    "4. 先跑只读子命令验证行为，再执行有副作用的命令",
+    "5. 确认可用后：在 aigc_demo_framework/tool_registry/ 新增 <name>_cli.json，跑 seed_tool_registry.py 固化"
+  ],
+  "examples": [
+    {
+      "task": "探索未知工具",
+      "cmd": "Get-Command ffmpeg; ffmpeg --help | Select-Object -First 30"
+    }
+  ],
+  "keywords": [
+    "未知命令",
+    "新工具",
+    "探索",
+    "--help",
+    "Get-Command",
+    "which",
+    "命令行"
+  ]
+}

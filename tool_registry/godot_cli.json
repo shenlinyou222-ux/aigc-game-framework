@@ -1,0 +1,44 @@
+{
+ "tool": "godot-cli",
+ "title": "Godot 4.7.2 命令行 (gdgs_lab 太空游戏)",
+ "bin_path": "C:\\Users\\user\\Desktop\\ds harness\\experiment\\gdgs_lab\\..\\godot\\Godot_v4.7.2-stable_win64_console.exe",
+ "category": "游戏 / 引擎 CLI",
+ "keywords": [
+  "godot",
+  "启动",
+  "import",
+  "check-only",
+  "日志",
+  "solar_combat",
+  "whale_early"
+ ],
+ "summary": "太空鲸鱼游戏 (solar_combat.tscn)。改资产必须先 --import; 运行日志 %APPDATA%/Godot/app_userdata/gdgs_lab/logs/godot.log (WHALE-DBG/CMDSRV/LOD 诊断)。",
+ "when_to_use": [
+  "启动/重启游戏",
+  "资产导入",
+  "脚本语法检查",
+  "看游戏运行日志排障"
+ ],
+ "commands": [
+  {
+   "name": "run",
+   "usage": "cd \"C:\\Users\\user\\Desktop\\ds harness\\experiment\\gdgs_lab\" && ../godot/Godot_v4.7.2-stable_win64_console.exe --path . res://solar_combat.tscn [-- whale_early|demo|ephem-fast]",
+   "desc": "whale_early=开局即现金鱼"
+  },
+  {
+   "name": "import",
+   "usage": "... --headless --path . --import",
+   "desc": "改资产后必须"
+  },
+  {
+   "name": "check",
+   "usage": "... --headless --check-only --script res://solar_combat.gd",
+   "desc": "GDScript 语法检查"
+  },
+  {
+   "name": "log",
+   "usage": "Get-Content %APPDATA%\\Godot\\app_userdata\\gdgs_lab\\logs\\godot.log -Tail 50 -Wait",
+   "desc": "实时跟日志"
+  }
+ ]
+}

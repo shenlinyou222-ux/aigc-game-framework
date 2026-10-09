@@ -1,0 +1,34 @@
+{
+ "tool": "sfx-assets-sources",
+ "title": "免费音效/贴图素材源 (CC0)",
+ "bin_path": "",
+ "category": "音频 / 素材 / 下载",
+ "keywords": [
+  "cc0",
+  "kenney",
+  "opengameart",
+  "音效库",
+  "素材",
+  "贴图",
+  "solarsystemscope",
+  "行星"
+ ],
+ "summary": "CC0音效: Kenney包 GitHub镜像 (codeload Calinou/kenney-interface-sounds, Boyquotes/kenney-{impact,sci-fi,rpg,digital}-*-for-godot)。水声: OpenGameArt 直链 /sites/default/files/<文件>。行星贴图: solarsystemscope.com/textures/download/8k_*.jpg (天王星/海王星仅2k)。游戏sfx目录 gdgs_lab/assets/sfx/。",
+ "when_to_use": [
+  "找新音效素材",
+  "下载行星贴图",
+  "补素材库"
+ ],
+ "commands": [
+  {
+   "name": "kenney",
+   "usage": "https://codeload.github.com/Calinou/kenney-interface-sounds/zip/refs/heads/master",
+   "desc": "100个CC0 UI音效"
+  },
+  {
+   "name": "planet-tex",
+   "usage": "https://www.solarsystemscope.com/textures/download/8k_mars.jpg",
+   "desc": "8k_{mars,mercury,venus_surface,saturn}; uranus/neptune 只有 2k"
+  }
+ ]
+}

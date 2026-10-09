@@ -1,0 +1,41 @@
+{
+  "tool": "svc-status",
+  "title": "本机 agent 服务健康聚合探针 (7 端口一条命令)",
+  "bin": "svc_status.py",
+  "bin_path": "C:\\Users\\user\\Desktop\\ds harness\\aigc_demo_framework\\svc_status.py",
+  "category": "本地服务 / 运维",
+  "keywords": [
+    "服务状态",
+    "健康检查",
+    "端口",
+    "哪些服务",
+    "探活",
+    "status",
+    "health",
+    "服务挂了",
+    "检查服务"
+  ],
+  "summary": "聚合探测本机全部 agent 基础服务：ctx8000(:8000 记忆后端)、ctx-router(:8001)、voice-stt(:8019)、Qwen3-ASR(:8124)、ollama(:11434)、dsh-web(:3080)、blender-mcp(:9876 TCP)。单个服务挂掉不影响其它探针，整体 3s 超时。输出 JSON(--table 人类可读)，exit 0=全绿 1=有服务不在线。",
+  "when_to_use": [
+    "不确定某个本地服务在不在/端口是多少时，先跑这个",
+    "调用某服务前做存活预检",
+    "排查 'agent 没反应/召回失败' 类问题第一步"
+  ],
+  "not_for": [
+    "替代各服务自身的精细诊断 (它只做探活, 不给修复建议)"
+  ],
+  "auth": "无需认证",
+  "commands": [
+    {
+      "name": "status",
+      "usage": "E:/py312/python.exe 'C:/Users/user/Desktop/ds harness/aigc_demo_framework/svc_status.py'",
+      "desc": "JSON 输出全部服务 {alive, latency_ms, detail}; --table 换人类可读表格"
+    }
+  ],
+  "examples": [
+    {
+      "task": "语音链路不响，查哪一层挂了",
+      "cmd": "E:/py312/python.exe svc_status.py --table  # 看 voice-stt / stt-asr 两行"
+    }
+  ]
+}

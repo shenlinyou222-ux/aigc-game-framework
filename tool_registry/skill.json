@@ -1,0 +1,42 @@
+{
+  "tool": "skill",
+  "title": "Skill Loader (skill)",
+  "bin": "",
+  "category": "技能 / 能力规范",
+  "summary": "加载某个可用技能（skill）的完整指令。调用前须用会话技能目录里的精确技能名。输出 { name, provider, resourceBase, content }。技能目录来自 skill-filesystem 等 provider 的本地发现。",
+  "when_to_use": [
+    "任务点名或明显匹配某个可用技能时",
+    "动手前加载该技能的完整规范"
+  ],
+  "not_for": [
+    "没有对应技能时编造",
+    "普通文件读取（用 read）"
+  ],
+  "parameters": {
+    "name": { "type": "string", "required": true, "description": "The exact skill name from the available skills list." }
+  },
+  "output": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "name": { "type": "string", "required": true },
+      "provider": { "type": "string", "required": true },
+      "resourceBase": {
+        "oneOf": [
+          { "type": "object", "additionalProperties": false, "properties": { "kind": { "type": "string", "required": true, "const": "directory" }, "path": { "type": "string", "required": true } } },
+          { "type": "object", "additionalProperties": false, "properties": { "kind": { "type": "string", "required": true, "const": "url" }, "url": { "type": "string", "required": true } } },
+          { "type": "object", "additionalProperties": false, "properties": { "kind": { "type": "string", "required": true, "const": "opaque" }, "description": { "type": "string", "required": true } } }
+        ]
+      },
+      "content": { "type": "string", "required": true }
+    }
+  },
+  "commands": [
+    {
+      "name": "skill",
+      "usage": "skill({ name: \"<exact-skill-name>\" })",
+      "desc": "必需 name: string（技能目录中的精确名）；输出 { name, provider, resourceBase, content }"
+    }
+  ],
+  "keywords": ["skill", "技能", "加载", "SKILL.md", "能力规范", "目录", "catalog"]
+}

@@ -1,0 +1,43 @@
+{
+  "tool": "ralph",
+  "title": "Ralph Loop (ralph)",
+  "bin": "",
+  "category": "多代理编排 / 新鲜代理迭代",
+  "summary": "运行 Ralph 循环：每个 round 启动一个无会话种子的全新子代理，共享工作区作持久记忆，直到 worker 报告完成或阻塞、或达轮数上限。仅当直接人类明确要求 Ralph loop 或 fresh-agent 迭代执行时使用。",
+  "when_to_use": [
+    "用户明确要求 Ralph / 新鲜代理迭代执行",
+    "需要无会话种子的跨轮独立代理"
+  ],
+  "not_for": [
+    "普通长期目标（用 goal 工具）",
+    "有界委托/扇出（用 subagent / workflow）"
+  ],
+  "parameters": {
+    "objective": {
+      "type": "string",
+      "required": true,
+      "description": "The immutable completion objective for every fresh Ralph round."
+    },
+    "maxRounds": {
+      "type": "number",
+      "description": "Optional positive safe-integer round cap, bounded by the deployment ceiling."
+    }
+  },
+  "output": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "runId": { "type": "string", "required": true },
+      "agentsStarted": { "type": "integer", "required": true },
+      "result": { "type": "json", "required": true }
+    }
+  },
+  "commands": [
+    {
+      "name": "ralph",
+      "usage": "ralph({ objective: \"<不可变目标>\", maxRounds?: 10 })",
+      "desc": "必需 objective: string；可选 maxRounds: number（受部署上限约束）"
+    }
+  ],
+  "keywords": ["ralph", "Ralph loop", "新鲜代理", "fresh agent", "迭代", "多轮", "objective"]
+}

@@ -1,0 +1,32 @@
+{
+ "tool": "voice-intent",
+ "title": "语音意图服务 (录音→ASR→意图→游戏inbox命令)",
+ "bin_path": "E:\\py312\\python.exe",
+ "category": "语音 / 游戏控制",
+ "keywords": [
+  "语音",
+  "意图",
+  "asr",
+  "transcribe",
+  "inbox",
+  "teleport",
+  "传送",
+  "V键",
+  "gdgs_lab"
+ ],
+ "summary": "监听游戏语音目录 wav → Qwen3-ASR 转写 → classify_space() 意图识别 → 写 commands/inbox.jsonl (游戏0.25s轮询执行)。意图含: 轨道线开关/星历时标/传送 teleport (八颗行星, \"传送到木星\"→params.target=jupiter)。",
+ "when_to_use": [
+  "游戏内按住V说话松开转写",
+  "新增语音指令意图 (改 classify_space)"
+ ],
+ "not_for": [
+  "不带 --project gdgs_lab 参数启动 (默认监听 StardewValley, 游戏语音全部无效!)"
+ ],
+ "commands": [
+  {
+   "name": "start",
+   "usage": "\"E:\\py312\\python.exe\" -X utf8 -u \"C:\\Users\\user\\Desktop\\ds harness\\aigc_demo_framework\\voice_intent.py\" --project gdgs_lab",
+   "desc": "必须带 --project! 日志重定向 %TEMP%/voice_intent_*.log"
+  }
+ ]
+}

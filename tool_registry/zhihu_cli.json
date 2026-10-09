@@ -1,0 +1,94 @@
+{
+  "tool": "zhihu-cli",
+  "title": "知乎 CLI (zhihu)",
+  "bin": "zhihu",
+  "bin_path": "C:\\Users\\user\\AppData\\Roaming\\Python\\Python314\\Scripts\\zhihu.exe",
+  "category": "中文社区 / 内容发布",
+  "summary": "终端读写知乎：搜索/热榜/推荐浏览，读问题与答案，发布文章·想法·提问，点赞收藏，账号认证。",
+  "when_to_use": [
+    "要在知乎发布文章、想法(pin)或提问",
+    "搜索知乎内容、看热榜、读某问题的高赞回答",
+    "查询登录态、收藏夹、关注关系"
+  ],
+  "not_for": [
+    "其他社区平台",
+    "批量爬取（尊重平台规则）"
+  ],
+  "auth": "zhihu login 后持久化；zhihu status/whoami 检查",
+  "commands": [
+    {
+      "name": "article",
+      "usage": "zhihu article TITLE CONTENT [-t TOPIC_ID]... [-i IMAGE]...",
+      "desc": "发布文章 (写文章/发文章，支持话题与配图)"
+    },
+    {
+      "name": "pin",
+      "usage": "zhihu pin TITLE [-c CONTENT] [-i IMAGE]...",
+      "desc": "发布想法 (发想法/写想法/pin 短内容)"
+    },
+    {
+      "name": "ask",
+      "usage": "zhihu ask ...",
+      "desc": "发布提问"
+    },
+    {
+      "name": "search",
+      "usage": "zhihu search QUERY",
+      "desc": "站内搜索"
+    },
+    {
+      "name": "hot/feed",
+      "usage": "zhihu hot | zhihu feed | zhihu feeds",
+      "desc": "热榜/推荐流"
+    },
+    {
+      "name": "question/answer",
+      "usage": "zhihu question QID | zhihu answers QID | zhihu answer AID",
+      "desc": "读问题详情与回答"
+    },
+    {
+      "name": "vote",
+      "usage": "zhihu vote ...",
+      "desc": "给回答投票"
+    },
+    {
+      "name": "login/status/whoami",
+      "usage": "zhihu login | zhihu status | zhihu whoami",
+      "desc": "认证与登录态"
+    },
+    {
+      "name": "delete-*",
+      "usage": "zhihu delete-article|delete-pin|delete-question ID",
+      "desc": "删除自己发布的内容"
+    }
+  ],
+  "examples": [
+    {
+      "task": "发一篇知乎文章",
+      "cmd": "zhihu article \"标题\" \"正文Markdown\""
+    },
+    {
+      "task": "发一条想法",
+      "cmd": "zhihu pin \"一句话标题\" -c \"补充内容\""
+    },
+    {
+      "task": "搜资料",
+      "cmd": "zhihu search \"向量数据库 选型\""
+    }
+  ],
+  "keywords": [
+    "知乎",
+    "发布文章",
+    "写文章",
+    "想法",
+    "pin",
+    "发想法",
+    "提问",
+    "搜索",
+    "热榜",
+    "回答",
+    "点赞",
+    "收藏",
+    "登录"
+  ]
+}

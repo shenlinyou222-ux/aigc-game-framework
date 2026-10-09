@@ -1,0 +1,44 @@
+{
+ "tool": "aigc-core-ctx",
+ "title": "上下文/向量记忆后端 (uvicorn :8000)",
+ "bin_path": "E:\\py312\\python.exe",
+ "category": "记忆 / 向量库 / 本地服务",
+ "keywords": [
+  "ctx",
+  "向量库",
+  "记忆",
+  "ingest",
+  "recall",
+  "tool search",
+  "8000",
+  "permanent"
+ ],
+ "summary": "会话/全局记忆向量库(词法+向量+时间衰减)。/ctx/ingest 字段是 record 不是 records (tools/ctxrecall.mjs 有此bug会422)! 工具卡正规写法: tool_registry/*.json + 同步(带嵌入), 手动 ingest 的 data={name,description} 在 tool/search 里是空 spec。permanent 记忆: session_id=\"permanent\"。",
+ "when_to_use": [
+  "写/查跨会话永久记忆",
+  "注册工具卡 tool_registry",
+  "排查 ctx_recall 搜不到历史"
+ ],
+ "commands": [
+  {
+   "name": "start",
+   "usage": "\"E:\\py312\\python.exe\" -m uvicorn aigc_core.api:create_app --factory --host 127.0.0.1 --port 8000",
+   "desc": "工作目录 aigc_demo_framework"
+  },
+  {
+   "name": "recall",
+   "usage": "POST /ctx/recall {\"query\":...} / ctx_recall 工具 {\"text\":...}",
+   "desc": "混合检索"
+  },
+  {
+   "name": "tool-search",
+   "usage": "POST /ctx/tool/search {\"text\":...,\"top_k\":5}",
+   "desc": "搜工具卡(走向量)"
+  },
+  {
+   "name": "ingest",
+   "usage": "POST /ctx/ingest {\"record\":{\"event_id\",\"event_type\",\"unix_time\",\"data\"}}",
+   "desc": "注意单数 record"
+  }
+ ]
+}

@@ -1,0 +1,5 @@
+{
+  "retention_sec": -1,
+  "max_entries": 20000,
+  "warn_ratio": 0.8
+}
