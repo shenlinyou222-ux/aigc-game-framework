@@ -2,7 +2,7 @@
   "tool": "github-cli",
   "title": "GitHub CLI (gh)",
   "bin": "gh",
-  "bin_path": "D:\\githubcli\\gh.exe",
+  "bin_path": "gh",
   "category": "代码托管 / 协作",
   "summary": "终端内操作 GitHub：认证、仓库克隆、issue/PR/release 管理、Actions 运行查看、GitHub API 调用。",
   "when_to_use": [

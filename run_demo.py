@@ -1,7 +1,7 @@
 """演示：没有真实 AI，只用规则模拟“AI 上层通过主控操作游戏”。
 
 运行：
-    E:\\py312\\python.exe run_demo.py
+    python run_demo.py
 """
 
 from __future__ import annotations

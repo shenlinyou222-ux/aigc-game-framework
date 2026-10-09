@@ -5,7 +5,7 @@
 recency 分漂移，保证逐 id 严格可比。
 
 用法（默认迁移主上下文库）:
-    E:/py312/python.exe migrate_store_to_sqlite.py
+    python migrate_store_to_sqlite.py
 可选:
     --source dsh_context_store.jsonl   源 JSONL
     --db      dsh_context_store.db     目标 SQLite（已存在则覆盖同 id 记录）

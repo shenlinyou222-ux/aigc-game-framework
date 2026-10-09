@@ -1,7 +1,7 @@
 {
  "tool": "voice-intent",
  "title": "语音意图服务 (录音→ASR→意图→游戏inbox命令)",
- "bin_path": "E:\\py312\\python.exe",
+ "bin_path": "python",
  "category": "语音 / 游戏控制",
  "keywords": [
   "语音",
@@ -25,7 +25,7 @@
  "commands": [
   {
    "name": "start",
-   "usage": "\"E:\\py312\\python.exe\" -X utf8 -u \"C:\\Users\\user\\Desktop\\ds harness\\aigc_demo_framework\\voice_intent.py\" --project gdgs_lab",
+   "usage": "python -X utf8 -u voice_intent.py --project gdgs_lab",
    "desc": "必须带 --project! 日志重定向 %TEMP%/voice_intent_*.log"
   }
  ]

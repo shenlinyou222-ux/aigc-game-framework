@@ -1,7 +1,7 @@
 """把 Godot game_events.jsonl 批量导入日志向量库（批量嵌入版）。
 
 用法:
-    E:/py312/python.exe ingest_logs.py ^
+    python ingest_logs.py ^
         --source "%APPDATA%/Godot/app_userdata/StardewValley/logs/game_events.jsonl" ^
         --store log_vector_store.jsonl ^
         --embedder-model qwen3-embedding:0.6b

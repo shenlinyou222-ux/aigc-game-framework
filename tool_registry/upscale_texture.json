@@ -1,7 +1,7 @@
 {
  "tool": "upscale-texture",
  "title": "Real-ESRGAN x4 贴图超分 (GPU, tiled)",
- "bin_path": "E:\\py312\\python.exe",
+ "bin_path": "python",
  "category": "图像 / 游戏资产",
  "keywords": [
   "超分",
@@ -25,7 +25,7 @@
  "commands": [
   {
    "name": "run",
-   "usage": "临时复制 tools/upscale_texture.py 改 IN_T/OUT_T 为 sys.argv 传参 (原脚本路径写死), 模型路径改绝对: \"C:\\Users\\user\\Desktop\\ds harness\\experiment\\gdgs_lab\\assets\\goldfish_src\\RealESRGAN_x4plus.pth\"",
+   "usage": "临时复制 tools/upscale_texture.py 改 IN_T/OUT_T 为 sys.argv 传参 (原脚本路径写死), 模型路径改绝对: \"<gdgs-rendering-lab 仓库根>\\assets\\goldfish_src\\RealESRGAN_x4plus.pth\"",
    "desc": "坑: 模型路径相对SRC, 换目录跑会找不到权重"
   }
  ]

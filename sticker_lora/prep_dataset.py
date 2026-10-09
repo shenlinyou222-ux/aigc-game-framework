@@ -4,10 +4,10 @@
       -> 规整到 --size 方图 -> 本地 Chinese-CLIP 自动情绪打标(复用 tag_stickers 词表)
       -> 输出 images/ + captions.jsonl + contact_sheet.png + manifest.json
 用法:
-  cd aigc_demo_framework
-  E:\\py312\\python.exe sticker_lora\\prep_dataset.py                     # 默认 小灰/512
-  E:\\py312\\python.exe sticker_lora\\prep_dataset.py --char 长夜月 --size 768
-  E:\\py312\\python.exe sticker_lora\\prep_dataset.py --no-clip           # 只规整不打标(快)
+  # 在仓库根目录
+  python sticker_lora/prep_dataset.py                     # 默认 小灰/512
+  python sticker_lora/prep_dataset.py --char 长夜月 --size 768
+  python sticker_lora/prep_dataset.py --no-clip           # 只规整不打标(快)
 就绪判据(写进 manifest): 去重后>=60 张; 单标签置信度>=0.25 占比>70%; 情绪覆盖>=12/22。
 """
 import argparse

@@ -2,7 +2,7 @@
   "tool": "space-combat-launch",
   "title": "太空战斗Demo 启动 (solar_combat, 含压测 --stress 模式)",
   "bin": "Godot_v4.7.2-stable_win64_console.exe",
-  "bin_path": "C:/Users/user/Desktop/ds harness/experiment/godot/Godot_v4.7.2-stable_win64_console.exe",
+  "bin_path": "Godot_v4.7.2-stable_win64_console.exe",
   "category": "游戏 / 启动",
   "keywords": [
     "太空战斗",
@@ -20,7 +20,7 @@
   "when_to_use": [
     "启动/重启太空战斗游戏或压测环境",
     "敌机密度/僚机数量/FPS 目标调整",
-    "查启动失败(路径空格)或日志位置"
+    "查启动失败或日志位置"
   ],
   "not_for": [
     "StardewValley 村庄项目"
@@ -29,8 +29,8 @@
   "commands": [
     {
       "name": "launch",
-      "usage": "& 'C:/Users/user/Desktop/ds harness/experiment/godot/Godot_v4.7.2-stable_win64_console.exe' --path 'C:/Users/user/Desktop/ds harness/experiment/gdgs_lab' res://solar_combat.tscn",
-      "desc": "普通启动; 等效 _solar.bat(日志重定向到 gdgs_lab/solar_combat.log)。关键: --path 带空格必须加引号, 否则报 Invalid project path: ...ds 直接退出"
+      "usage": "& 'Godot_v4.7.2-stable_win64_console.exe' --path '<gdgs-rendering-lab 仓库根>' res://solar_combat.tscn",
+      "desc": "普通启动; 等效 _solar.bat(日志重定向到 solar_combat.log)。--path 指向 <gdgs-rendering-lab 仓库根>"
     },
     {
       "name": "stress",
@@ -49,7 +49,7 @@
     },
     {
       "name": "voice_stack",
-      "usage": "_vi_gdgs.bat (C:/Python314) + llama-server :8124",
+      "usage": "_vi_gdgs.bat (python) + llama-server :8124",
       "desc": "语音配套: voice_intent.py --project gdgs_lab watching %APPDATA%/Godot/app_userdata/gdgs_lab/voice; 游戏内按V说话; 免唤醒 查询/任务/战况 直接EVA播报; 数值表 data/balance.txt([wingman]段可调僚机)"
     }
   ],

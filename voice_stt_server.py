@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """语音转文字微服务: 复用 voice_intent.py 的 transcribe(唯一后端 Qwen3-ASR-0.6B)
-用法: E:/py312/python.exe voice_stt_server.py        (默认 127.0.0.1:8019)
+用法: python voice_stt_server.py        (默认 127.0.0.1:8019)
 接口:
   GET  /health  -> {"ok": true}
   POST /stt     -> body: PCM16LE 单声道 16kHz 裸流 -> {"text": "..."}

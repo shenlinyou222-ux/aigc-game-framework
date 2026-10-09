@@ -4,7 +4,11 @@
 """
 import os, random, re, json, time
 
-STICKER_DIR = r"C:\Users\user\Desktop\ds harness\godot_valley_demo\stickers"
+# 表情包目录（文件名 = 情绪_角色_序号.png）。游戏素材不入库：
+# 用环境变量 STICKER_DIR 指定，默认取本仓库的 assets/stickers/。
+STICKER_DIR = os.environ.get(
+    "STICKER_DIR",
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "stickers"))
 INBOX = os.path.join(os.environ.get("APPDATA") or os.path.expanduser("~/AppData/Roaming"), "Godot", "app_userdata",
                      "StardewValley", "commands", "inbox.jsonl")
 
@@ -14,7 +18,10 @@ _files = None
 def index() -> list:
     global _files
     if _files is None:
-        _files = [f for f in os.listdir(STICKER_DIR) if f.endswith(".png")]
+        try:
+            _files = [f for f in os.listdir(STICKER_DIR) if f.endswith(".png")]
+        except OSError:
+            _files = []   # 目录不存在时返回空列表，调用方按"没有素材"处理
     return _files
 
 

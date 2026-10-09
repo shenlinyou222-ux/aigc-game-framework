@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """model_batch_manager 单测:桩 Ollama 服务器验证批处理合并、去重、keep_alive 策略与训练闸门。
 
-运行: cd aigc_demo_framework && E:/py312/python.exe -m unittest tests.test_batch_manager -v
+运行（在仓库根目录）: python -m unittest tests.test_batch_manager -v
 """
 import json
 import threading

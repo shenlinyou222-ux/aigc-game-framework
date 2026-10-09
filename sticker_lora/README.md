@@ -1,6 +1,6 @@
 # 表情包 LoRA · 抽卡回收区
 
-> 决策（2026-09-04）：表情包弃用米哈游 IP 素材（godot_valley_demo/stickers 26 张 + E:\stickers 1507 张仅作风格参考），
+> 决策（2026-09-04）：表情包弃用米哈游 IP 素材（<godot_valley_demo 项目>/stickers 26 张 + <本机表情包素材目录> 1507 张仅作风格参考），
 > 改走 **外部生成网站人工抽卡 → 本地微调角色 LoRA → 本地管线参考表情包量产**。
 
 ## 你要做的（抽卡）
@@ -28,8 +28,8 @@
 ## 丢完图跑这个
 
 ```powershell
-cd "C:\Users\user\Desktop\ds harness\aigc_demo_framework"
-E:\py312\python.exe sticker_lora\prep_dataset.py --char 小灰
+# 在仓库根目录
+python sticker_lora/prep_dataset.py --char 小灰
 ```
 
 产物（`sticker_lora/dataset/`）：

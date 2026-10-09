@@ -10,7 +10,7 @@
 - 下个会话用同一份库加载并按需 recall，即可快速恢复上下文，不必重放整段对话。
 
 运行：
-    E:\\py312\\python.exe seed_current_session.py
+    python seed_current_session.py
 
 说明：
 - 不依赖 Ollama：用确定性 HashEmbedder 生成向量（跨进程可复现），

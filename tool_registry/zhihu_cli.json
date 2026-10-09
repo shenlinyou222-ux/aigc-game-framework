@@ -2,7 +2,7 @@
   "tool": "zhihu-cli",
   "title": "知乎 CLI (zhihu)",
   "bin": "zhihu",
-  "bin_path": "C:\\Users\\user\\AppData\\Roaming\\Python\\Python314\\Scripts\\zhihu.exe",
+  "bin_path": "zhihu",
   "category": "中文社区 / 内容发布",
   "summary": "终端读写知乎：搜索/热榜/推荐浏览，读问题与答案，发布文章·想法·提问，点赞收藏，账号认证。",
   "when_to_use": [

@@ -2,7 +2,7 @@
   "tool": "hf-cli",
   "title": "Hugging Face CLI (hf)",
   "bin": "hf",
-  "bin_path": "C:\\Python314\\Scripts\\hf.exe",
+  "bin_path": "hf",
   "legacy_alias": "huggingface-cli",
   "category": "模型/数据集 Hub",
   "summary": "Hugging Face Hub 命令行：模型/数据集/Spaces 的下载与上传、认证、缓存管理、仓库管理、云端 Jobs。",

@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 """表情包情绪打标器(Chinese-CLIP 零样本, 只打指定目录)
 用法:
-  python tag_stickers.py "E:\stickers\ZZZ\邦布"          # 打标一个目录
+  python tag_stickers.py <表情包目录>                    # 打标一个目录
 产物:
-  sticker_tags.json  {路径: {"emotions": [(标签,分),...], "character": 目录名}}
+  sticker_tags.json  {相对路径: {"emotions": [(标签,分),...], "character": 目录名}}
+  （键是相对 STICKER_ROOT 的路径，默认相对被扫描的目录——
+    这样产物里不会出现本机绝对路径。）
   sticker_review.html 左右对照浏览页(浏览器打开人工复核)
 """
 import glob, json, os, sys
@@ -16,6 +18,16 @@ EMOTIONS = [
 ]
 PROMPTS = [e + "的表情包" for e in EMOTIONS]
 TAGS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sticker_tags.json")
+
+
+def _rel_key(abs_path: str, directory: str) -> str:
+    """把绝对路径转成相对路径键（基准 = STICKER_ROOT 或本次扫描目录）。"""
+    root = os.environ.get("STICKER_ROOT") or directory
+    try:
+        rel = os.path.relpath(abs_path, root)
+    except ValueError:          # 跨盘符无法相对化
+        rel = os.path.basename(abs_path)
+    return rel.replace("\\", "/")
 
 
 def tag_dir(directory: str) -> list[dict]:
@@ -55,7 +67,8 @@ def tag_dir(directory: str) -> list[dict]:
     if os.path.exists(TAGS_FILE):
         tags = json.load(open(TAGS_FILE, encoding="utf-8"))
     for r in results:
-        tags[r["file"]] = {"emotions": r["emotions"], "character": r["character"]}
+        key = _rel_key(r["file"], directory)
+        tags[key] = {"emotions": r["emotions"], "character": r["character"]}
     json.dump(tags, open(TAGS_FILE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"完成, 累计标注 {len(tags)} 张 -> {os.path.basename(TAGS_FILE)}")
     return results
@@ -80,6 +93,10 @@ def write_html(results: list[dict]) -> None:
 
 
 if __name__ == "__main__":
-    d = sys.argv[1] if len(sys.argv) > 1 else r"E:\stickers\ZZZ\邦布"
+    if len(sys.argv) < 2:
+        print("用法: python tag_stickers.py <表情包目录>")
+        print("     环境变量 STICKER_ROOT 可指定相对路径的基准目录（默认=被扫描目录）")
+        raise SystemExit(2)
+    d = sys.argv[1]
     res = tag_dir(d)
     write_html(res)

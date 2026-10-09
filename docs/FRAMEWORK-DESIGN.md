@@ -175,7 +175,7 @@ hits = store.query("创建一种叫 test 的新物品种类", top_k=3)  # -> cre
 
 `demo_ai_interfaces.py`：AI 实测闭环（召回→HTTP 调用→调用写日志向量），运行：
 ```bash
-E:\py312\python.exe demo_ai_interfaces.py
+python demo_ai_interfaces.py
 ```
 
 单测覆盖（coverage）：整体 86~87%，api / ai_gateway / godot_game / models 100%。
@@ -228,7 +228,7 @@ out = run_python(bad_src, reg, env={}, on_error=lambda e: {"ok":False})  # fallb
 ## HTTP 接口
 
 ```bash
-E:\py312\python.exe -m uvicorn aigc_core.api:create_app --factory --host 127.0.0.1 --port 8000
+python -m uvicorn aigc_core.api:create_app --factory --host 127.0.0.1 --port 8000
 ```
 
 可用接口：
@@ -263,8 +263,8 @@ E:\py312\python.exe -m uvicorn aigc_core.api:create_app --factory --host 127.0.0
 ## 运行
 
 ```bash
-E:\py312\python.exe -m unittest discover -s tests -v
-E:\py312\python.exe run_demo.py
+python -m unittest discover -s tests -v
+python run_demo.py
 ```
 
 ## 06 机制（本会话落地，见 `../aigc_docs/06-会话上下文检索与工具组装机制.md`）

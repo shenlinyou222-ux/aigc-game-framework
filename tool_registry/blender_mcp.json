@@ -2,7 +2,7 @@
   "tool": "blender-mcp",
   "title": "BlenderMCP 本机 3D 服务 (Blender GUI + addon socket :9876)",
   "bin": "blender.exe",
-  "bin_path": "D:\\Blender\\blender.exe",
+  "bin_path": "blender",
   "category": "本地服务 / 3D / MCP",
   "keywords": [
     "blender",
@@ -33,7 +33,7 @@
   "commands": [
     {
       "name": "start",
-      "usage": "\"D:\\Blender\\blender.exe\" --python \"C:\\Users\\user\\Desktop\\ds harness\\blender\\start_blender_mcp.py\"",
+      "usage": "blender --python \"%USERPROFILE%\\blender\\start_blender_mcp.py\"",
       "desc": "GUI 模式拉起 Blender 并自动 register() addon, 9876 开始监听; 脚本交还控制权后 Blender 窗口保持运行 (脚本: blender/start_blender_mcp.py)"
     },
     {

@@ -2,8 +2,8 @@
 """svc_status.py — 本机 agent 服务健康聚合探针（一条命令看清 7 个端口）。
 
 用法:
-    E:/py312/python.exe svc_status.py            # JSON 输出
-    E:/py312/python.exe svc_status.py --table    # 人类可读表格
+    python svc_status.py            # JSON 输出
+    python svc_status.py --table    # 人类可读表格
 
 探针设计: HTTP 服务打各自 /health(或等价)端点; 纯 socket 服务(Blender addon 9876)
 只做 TCP connect。整体 3s 超时, 任何单个服务挂掉不影响其它探针。

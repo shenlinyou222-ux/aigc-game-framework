@@ -1,7 +1,7 @@
 {
  "tool": "godot-cli",
  "title": "Godot 4.7.2 命令行 (gdgs_lab 太空游戏)",
- "bin_path": "C:\\Users\\user\\Desktop\\ds harness\\experiment\\gdgs_lab\\..\\godot\\Godot_v4.7.2-stable_win64_console.exe",
+ "bin_path": "Godot_v4.7.2-stable_win64_console.exe",
  "category": "游戏 / 引擎 CLI",
  "keywords": [
   "godot",
@@ -22,7 +22,7 @@
  "commands": [
   {
    "name": "run",
-   "usage": "cd \"C:\\Users\\user\\Desktop\\ds harness\\experiment\\gdgs_lab\" && ../godot/Godot_v4.7.2-stable_win64_console.exe --path . res://solar_combat.tscn [-- whale_early|demo|ephem-fast]",
+   "usage": "cd <gdgs-rendering-lab 仓库根> && Godot_v4.7.2-stable_win64_console.exe --path . res://solar_combat.tscn [-- whale_early|demo|ephem-fast]",
    "desc": "whale_early=开局即现金鱼"
   },
   {

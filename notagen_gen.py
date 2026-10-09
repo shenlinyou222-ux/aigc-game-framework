@@ -5,8 +5,12 @@
 """
 import os, sys, time
 
-NOTAGEN = r"C:\Users\user\Desktop\ds harness\NotaGen\gradio"
-WEIGHTS = r"C:\Users\user\Desktop\ds harness\NotaGen\weights_notagenx.pth"
+# NotaGen-X 上游仓库的本地检出目录与权重文件。上游代码与权重不入库：
+# 用环境变量 NOTAGEN_DIR / NOTAGEN_WEIGHTS 指定，
+# 默认放在本仓库的 third_party/NotaGen/ 下。
+_HERE = os.path.dirname(os.path.abspath(__file__))
+NOTAGEN = os.environ.get("NOTAGEN_DIR", os.path.join(_HERE, "third_party", "NotaGen", "gradio"))
+WEIGHTS = os.environ.get("NOTAGEN_WEIGHTS", os.path.join(_HERE, "third_party", "NotaGen", "weights_notagenx.pth"))
 
 
 def main():

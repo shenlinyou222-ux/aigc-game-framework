@@ -2,7 +2,7 @@
   "tool": "voice-stt-service",
   "title": "统一语音转文字入口 (PCM→文本 微服务 :8019)",
   "bin": "voice_stt_server.py",
-  "bin_path": "C:\\Users\\user\\Desktop\\ds harness\\aigc_demo_framework\\voice_stt_server.py",
+  "bin_path": "voice_stt_server.py",
   "category": "语音 / STT / 本地服务",
   "keywords": [
     "语音转文字",
@@ -20,7 +20,7 @@
     "语音输入",
     "voice-stt-server"
   ],
-  "summary": "所有 agent 的统一 STT 入口：POST 16kHz 单声道 PCM16LE 裸流到 127.0.0.1:8019/stt 返回文本。内部转发 Qwen3-ASR llama.cpp 服务(:8124)，llama-server 不在时自动分离拉起(60s退避)。CORS 全放行，浏览器可直接调。上游消费方: DSH web 语音输入插件(:3080 🎤/空格按住说话)、voice_intent 游戏语音链路。启动: E:/py312/python.exe voice_stt_server.py 或 start_voice_stt.ps1。（voice-stt-server 旧条目已合并入本工具，勿重复注册）",
+  "summary": "所有 agent 的统一 STT 入口：POST 16kHz 单声道 PCM16LE 裸流到 127.0.0.1:8019/stt 返回文本。内部转发 Qwen3-ASR llama.cpp 服务(:8124)，llama-server 不在时自动分离拉起(60s退避)。CORS 全放行，浏览器可直接调。上游消费方: DSH web 语音输入插件(:3080 🎤/空格按住说话)、voice_intent 游戏语音链路。启动: python voice_stt_server.py 或 start_voice_stt.ps1。（voice-stt-server 旧条目已合并入本工具，勿重复注册）",
   "when_to_use": [
     "任何 agent/前端需要把录音转文字——统一走 8019, 不要各自直连 8124",
     "浏览器端麦克风采集 (CORS 已放行, 参考 DSH-Voice-Input-Plugin/lib/client.js)",
@@ -44,7 +44,7 @@
     },
     {
       "name": "start",
-      "usage": "powershell -File 'C:\\Users\\user\\Desktop\\ds harness\\aigc_demo_framework\\start_voice_stt.ps1'",
+      "usage": "powershell -File 'start_voice_stt.ps1'",
       "desc": "幂等拉起 (已监听 8019 则跳过); 推荐登录自启以实现静默常驻"
     }
   ],

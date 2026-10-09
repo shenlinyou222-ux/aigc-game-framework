@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 """可续跑入库：跳过已有向量的记录，只补缺失部分。"""
-import json, time
+import json, os, time
 from pathlib import Path
 from aigc_core.log_vector_store import LogVectorStore
 from aigc_core import OllamaLogEmbedder
 from aigc_core.models import GameLogRecord
 
-src = Path(r'C:\Users\user\AppData\Roaming\Godot\app_userdata\StardewValley\logs\game_events.jsonl')
+# 游戏日志源：默认取 Godot 用户目录下的 game_events.jsonl，
+# 可用环境变量 GAME_EVENTS 直接指定文件路径。
+_APPDATA = os.environ.get("APPDATA") or str(Path.home() / "AppData" / "Roaming")
+src = Path(os.environ.get("GAME_EVENTS") or os.path.join(
+    _APPDATA, "Godot", "app_userdata", "StardewValley", "logs", "game_events.jsonl"))
 store = LogVectorStore(path='log_vector_store.jsonl')
 embedder = OllamaLogEmbedder(model='qwen3-embedding:0.6b', base_url='http://localhost:11434')
 

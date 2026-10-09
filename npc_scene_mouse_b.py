@@ -3,7 +3,7 @@
 → 新事实向量入库 → 组装上下文生成简短对话（含触发条件）。
 
 分工：触发=CEL（预设相关度阈值）｜推理=qwen3.5:0.8b（结论由模型产出）｜入库=CEL（权限+门槛）
-用法: E:/py312/python.exe npc_scene_mouse_b.py
+用法: python npc_scene_mouse_b.py
 """
 from __future__ import annotations
 

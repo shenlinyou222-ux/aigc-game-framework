@@ -2,7 +2,7 @@
   "tool": "stt-llamaserver",
   "title": "Qwen3-ASR Q4_K_M 语音转写服务 (llama.cpp)",
   "bin": "llama-server.exe",
-  "bin_path": "C:\\Users\\user\\Desktop\\ds harness\\aigc_demo_framework\\models\\llamacpp\\llama-server.exe",
+  "bin_path": "llama-server.exe",
   "category": "语音 / STT",
   "keywords": [
     "语音转文字",

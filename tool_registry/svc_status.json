@@ -2,7 +2,7 @@
   "tool": "svc-status",
   "title": "本机 agent 服务健康聚合探针 (7 端口一条命令)",
   "bin": "svc_status.py",
-  "bin_path": "C:\\Users\\user\\Desktop\\ds harness\\aigc_demo_framework\\svc_status.py",
+  "bin_path": "svc_status.py",
   "category": "本地服务 / 运维",
   "keywords": [
     "服务状态",
@@ -28,14 +28,14 @@
   "commands": [
     {
       "name": "status",
-      "usage": "E:/py312/python.exe 'C:/Users/user/Desktop/ds harness/aigc_demo_framework/svc_status.py'",
+      "usage": "python svc_status.py",
       "desc": "JSON 输出全部服务 {alive, latency_ms, detail}; --table 换人类可读表格"
     }
   ],
   "examples": [
     {
       "task": "语音链路不响，查哪一层挂了",
-      "cmd": "E:/py312/python.exe svc_status.py --table  # 看 voice-stt / stt-asr 两行"
+      "cmd": "python svc_status.py --table  # 看 voice-stt / stt-asr 两行"
     }
   ]
 }

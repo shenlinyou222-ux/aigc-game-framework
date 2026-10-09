@@ -2,7 +2,7 @@
   "tool": "habitica",
   "title": "本地自建 Habitica 沙盒（任务挂载 + 核验）",
   "bin": "node",
-  "bin_path": "E:\\node20\\node.exe",
+  "bin_path": "node",
   "category": "任务管理 / 自我量化",
   "keywords": [
     "habitica",
@@ -44,51 +44,51 @@
     "用 PowerShell 的 Invoke-RestMethod 传中文字符串 body（会按本地代码页编码，把「核验」写成 ??）——写中文一律走 Node",
     "直接 node verifier-selftest.js（要用 run-selftest.ps1，它负责改小宽限期+清账+还原）"
   ],
-  "auth": "本地沙盒账号，凭据在 E:\\habitica-setup\\verifier-config.json 的 habitica 段（userId/apiKey）；habitica-cli.ps1 / my-plan.js 里也各有一份同样的硬编码。不需登录。",
+  "auth": "本地沙盒账号，凭据在 %HABITICA_SETUP%\\verifier-config.json 的 habitica 段（userId/apiKey）；habitica-cli.ps1 / my-plan.js 里也各有一份同样的硬编码。不需登录。",
   "commands": [
     {
       "name": "serve",
-      "usage": "powershell -NoProfile -ExecutionPolicy Bypass -File E:\\habitica-setup\\start-habitica.ps1  |  stop-habitica.ps1",
+      "usage": "powershell -NoProfile -ExecutionPolicy Bypass -File %HABITICA_SETUP%\\start-habitica.ps1  |  stop-habitica.ps1",
       "desc": "启停 mongod(replSet rs, 27017) + API(3000) + Vite(5173)。注意本机只能跑 Windows PowerShell 5.1（没有 pwsh 7），且执行策略是 Restricted，必须带 -ExecutionPolicy Bypass"
     },
     {
       "name": "mount detect",
-      "usage": "E:\\node20\\node.exe E:\\habitica-setup\\mount.js detect",
+      "usage": "node %HABITICA_SETUP%\\mount.js detect",
       "desc": "只读检测（默认动作）：线上 vs tasks.plan.json 的漂移（待新建/待更新/待打标/孤儿）+ 规则绑定体检。绝对安全，先跑这个"
     },
     {
       "name": "mount check",
-      "usage": "E:\\node20\\node.exe E:\\habitica-setup\\mount.js check",
+      "usage": "node %HABITICA_SETUP%\\mount.js check",
       "desc": "只跑「规则 <-> 任务 <-> 核验标签」三方绑定体检"
     },
     {
       "name": "mount apply",
-      "usage": "E:\\node20\\node.exe E:\\habitica-setup\\mount.js apply [--yes] [--delete] [--sync-rules] [--force]",
+      "usage": "node %HABITICA_SETUP%\\mount.js apply [--yes] [--delete] [--sync-rules] [--force]",
       "desc": "声明式 reconcile：新建缺失 / 按 key 更新改名 / 打 [dsh:key] 标记。默认 dry-run，不加 --yes 不写一个字；删孤儿要 --delete（被规则引用或有历史的一律拒删，除非 --force）；规则文本漂移用 --sync-rules 同步 verifier-config.json（改完必须重启守护进程才生效）"
     },
     {
       "name": "mount seed",
-      "usage": "E:\\node20\\node.exe E:\\habitica-setup\\mount.js seed [--yes]",
+      "usage": "node %HABITICA_SETUP%\\mount.js seed [--yes]",
       "desc": "从线上现状反向生成 tasks.plan.json（唯一事实来源，AI 编辑它）。已存在需 --yes 才会覆盖"
     },
     {
       "name": "cli",
-      "usage": "powershell -NoProfile -ExecutionPolicy Bypass -File E:\\habitica-setup\\habitica-cli.ps1 -Action tasks|stats|add|update|score|delete|tags|export ...",
+      "usage": "powershell -NoProfile -ExecutionPolicy Bypass -File %HABITICA_SETUP%\\habitica-cli.ps1 -Action tasks|stats|add|update|score|delete|tags|export ...",
       "desc": "单条任务操作（18 个实测动作）。适合手改一条；批量/幂等请走 mount.js"
     },
     {
       "name": "verifier",
-      "usage": "powershell -NoProfile -ExecutionPolicy Bypass -File E:\\habitica-setup\\start-verifier.ps1 [-Status|-Stop]",
+      "usage": "powershell -NoProfile -ExecutionPolicy Bypass -File %HABITICA_SETUP%\\start-verifier.ps1 [-Status|-Stop]",
       "desc": "核验守护进程(:8901) + 前台窗口取证器；-Status 看今日记账/待核验/当前证据"
     },
     {
       "name": "manage",
-      "usage": "E:\\node20\\node.exe E:\\habitica-setup\\manage.js status|apply|tag \"任务文本\"|untag \"任务文本\"",
+      "usage": "node %HABITICA_SETUP%\\manage.js status|apply|tag \"任务文本\"|untag \"任务文本\"",
       "desc": "核验体系的统一管理入口：status 看三方对应与今日证据；apply 补齐核验标签并确保 webhook 存在"
     },
     {
       "name": "selftest",
-      "usage": "E:\\node20\\node.exe E:\\habitica-setup\\_mount-selftest.js  |  _sync-rules-test.js  |  run-selftest.ps1",
+      "usage": "node %HABITICA_SETUP%\\_mount-selftest.js  |  _sync-rules-test.js  |  run-selftest.ps1",
       "desc": "三套自检：挂载层新建/改名/删除（18 断言）、规则文本漂移同步与重启语义（23 断言）、反作弊闭环（7 断言）。跑完自动还原，不留痕"
     }
   ]

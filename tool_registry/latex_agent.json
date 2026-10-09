@@ -2,7 +2,7 @@
   "tool": "latex-agent",
   "title": "LaTeX 详细解析排版 Agent（xelatex + ctex）",
   "bin": "xelatex",
-  "bin_path": "E:\\MiKTeX\\texmfs\\install\\miktex\\bin\\x64\\xelatex.exe",
+  "bin_path": "xelatex",
   "category": "文档 / 排版",
   "summary": "用 LaTeX 把技术讲义/论文改写成'概念详解+生动类比+全注释代码'的中文 PDF。中文必须 xelatex + ctexart；本机 latexmk 缺 perl，直接用 xelatex 连跑 2-3 遍；配套工作流见 skills/latex-doc-agent/SKILL.md。",
   "when_to_use": [
@@ -41,7 +41,7 @@
       "desc": "查看页数"
     }
   ],
-  "skill_path": "C:\\Users\\user\\Desktop\\ds harness\\aigc_demo_framework\\skills\\latex-doc-agent\\SKILL.md",
+  "skill_path": "skills/latex-doc-agent/SKILL.md",
   "keywords": [
     "LaTeX",
     "latex",

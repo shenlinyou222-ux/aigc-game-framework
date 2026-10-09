@@ -11,12 +11,12 @@ from aigc_core.sqlite_log_store import SqliteLogStore
 # ---------- 抽取规则 ----------
 
 def test_extract_windows_path():
-    ents = extract_entities(r"改 E:\ai-repos\mem0\mem0\utils\entity_extraction.py 的规则")
+    ents = extract_entities(r"改 E:\repos\mem0\mem0\utils\entity_extraction.py 的规则")
     types = [t for t, _ in ents]
     assert "PATH" in types
     # 完整路径被抽成一条 PATH（不被 FILE/IDENTIFIER 拆走）
     path_ents = [tx for t, tx in ents if t == "PATH"]
-    assert any("ai-repos" in p and "entity_extraction.py" in p for p in path_ents)
+    assert any("mem0" in p and "entity_extraction.py" in p for p in path_ents)
 
 
 def test_extract_relative_path():
@@ -105,15 +105,15 @@ def _mk(event_id: str, text: str, ts: float) -> GameLogRecord:
 def test_recall_entity_boost_raises_hit():
     idx = EntityIndex()
     store = LogVectorStore()
-    r1 = _mk("r1", "在 E:\\ai-repos\\mem0 里看 entity_extraction.py 的实现", 100.0)
+    r1 = _mk("r1", "在 E:\\repos\\mem0 里看 entity_extraction.py 的实现", 100.0)
     r2 = _mk("r2", "今天天气不错，去公园散步", 101.0)
     store.add(r1)
     store.add(r2)
     idx.link(r1.data["text"], "r1")
 
-    base = store.recall_hybrid(query_text="E:\\ai-repos\\mem0 的实现", limit=10)
+    base = store.recall_hybrid(query_text="E:\\repos\\mem0 的实现", limit=10)
     boosted = store.recall_hybrid(
-        query_text="E:\\ai-repos\\mem0 的实现",
+        query_text="E:\\repos\\mem0 的实现",
         limit=10,
         entity_index=idx,
         entity_boost_weight=0.5,
@@ -133,11 +133,11 @@ def test_recall_entity_boost_raises_hit():
 def test_recall_entity_boost_default_off():
     idx = EntityIndex()
     store = LogVectorStore()
-    r1 = _mk("r1", "在 E:\\ai-repos\\mem0 里看 entity_extraction.py", 100.0)
+    r1 = _mk("r1", "在 E:\\repos\\mem0 里看 entity_extraction.py", 100.0)
     store.add(r1)
     idx.link(r1.data["text"], "r1")
     # 不传 entity_index：行为与旧版一致（无实体子分）
-    hits = store.recall_hybrid(query_text="E:\\ai-repos\\mem0", limit=10)
+    hits = store.recall_hybrid(query_text="E:\\repos\\mem0", limit=10)
     assert all(h.entity_hits == [] and h.entity_score == 0.0 for h in hits)
 
 
@@ -148,7 +148,7 @@ def test_entity_parity_jsonl_vs_sqlite(tmp_path):
     lvs = LogVectorStore()
     sls = SqliteLogStore(path=tmp_path / "parity.db")
     recs = [
-        _mk("r1", "在 E:\\ai-repos\\mem0 里看 entity_extraction.py 的实现", 100.0),
+        _mk("r1", "在 E:\\repos\\mem0 里看 entity_extraction.py 的实现", 100.0),
         _mk("r2", "今天天气不错，去公园散步", 101.0),
         _mk("r3", "config.yml 的写法参考 main.py", 102.0),
     ]
@@ -158,7 +158,7 @@ def test_entity_parity_jsonl_vs_sqlite(tmp_path):
         idx.link(r.data["text"], r.event_id)
 
     kw = dict(
-        query_text="E:\\ai-repos\\mem0 entity_extraction.py",
+        query_text="E:\\repos\\mem0 entity_extraction.py",
         limit=10,
         entity_index=idx,
         entity_boost_weight=0.5,
