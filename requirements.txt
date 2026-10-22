@@ -3,6 +3,13 @@ uvicorn>=0.52
 pydantic>=2.13
 httpx>=0.28
 
+# 向量检索/日志存储用（aigc_core/log_vector_store.py:24 直接 import numpy）
+numpy>=1.26
+
+# 测试依赖：README「快速验证」里的 python -m pytest tests -q 需要它们，
+# 只装运行依赖时 collection 会直接失败（2026-10-22 实测）
+pytest>=8
+
 # 真正的向量数据库（生命周期/清理由库负责；装上后 LogVectorStore 退出生产路径）
 # chromadb>=1.0
 # 若用带原生 TTL 的库再自行追加（如 milvus / qdrant / lancedb）
