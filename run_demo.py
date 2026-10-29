@@ -6,6 +6,12 @@
 
 from __future__ import annotations
 
+import sys
+
+# Windows 控制台/管道默认不是 UTF-8，直接 print 中文会 UnicodeEncodeError
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 from aigc_core import (
     ActorRole,
     GameCommand,
