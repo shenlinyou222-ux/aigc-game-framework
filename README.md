@@ -66,6 +66,25 @@ python -m pytest tests -q
 
 ---
 
+## 本地演示
+
+```bash
+python -m venv .venv
+.venv\Scripts\pip install -r requirements.txt      # Linux/macOS 用 .venv/bin/pip
+
+.venv\Scripts\python -m uvicorn demo_server:app --port 8765
+```
+
+打开 <http://127.0.0.1:8765/>：
+
+- `/demo/run` —— 跑一遍「AI 读世界状态 → 整理背包（允许）→ 刷物品（被拒）」
+- `/docs` —— 全部 `/v1/*` 与 `/ctx/*` 接口的 Swagger
+- `/health` —— 探活
+
+> 演示壳用内存态主控 + `MockGame`，不落盘、不依赖模型；真实入口仍是 `aigc_core/api.py` 的 `create_app()`。
+
+---
+
 ## 目录结构
 
 ```
